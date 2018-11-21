@@ -18,7 +18,7 @@ if echo "$1" | grep youtube > /dev/null; then
 		esac
 # General checks
 elif echo $pqivFiles | grep -w $ext > /dev/null; then
-		i3 exec pqiv "$1" >/dev/null &
+		nohup pqiv -i -P "0,0" -T "pqivfloat" "$1" >/dev/null &
 elif echo $mpvFiles | grep -w $ext > /dev/null; then
 		chosen=$(echo -e "mpv\nmpv (loop)\nqutebrowser" | dmenu -i)
 		case "$chosen" in
@@ -36,6 +36,6 @@ else
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
 			"mpv (float)") nohup mpv --geometry=-0-0 --autofit=40% --title="mpvfloat" "$1" >/dev/null & ;;
 			qutebrowser) qutebrowser "$1" & ;;
-			pqiv) nohup pqiv "$1" >/dev/null & ;;
+			pqiv) nohup pqiv -i -P "0,0" -T "pqivfloat" "$1" >/dev/null & ;;
 		esac
 fi
