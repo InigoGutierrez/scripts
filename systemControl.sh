@@ -3,13 +3,7 @@
 
 options="lock\nreboot\nshutdown\nexit i3" 
 
-chosen=$(echo -e "$options" | dmenu \
--i \
--p ">_" \
--nb "#000000" \
--nf "#60ff00" \
--sb "#60f000" \
--sf "#000000")
+chosen=$(echo -e "$options" | dmenu)
 
 case "$chosen" in
 	lock) i3lock -i ~/images/wallpapers/lockbg.png -f ;;

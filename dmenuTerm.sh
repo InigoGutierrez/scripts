@@ -3,13 +3,7 @@
 
 options="neofetch\ncmus\nnewsboat\nneomutt\nsyncthing\nbrightFirst\nresetConnection\nwifiDown\nyears\nmonths\nbg selection\nshowColors" 
 
-chosen=$(echo -e "$options" | dmenu \
--i \
--p "~$" \
--nb "#000000" \
--nf "#60ff00" \
--sb "#60f000" \
--sf "#000000")
+chosen=$(echo -e "$options" | dmenu -i)
 
 case "$chosen" in
 	# floating windows
