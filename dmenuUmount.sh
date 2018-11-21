@@ -16,7 +16,8 @@
 exclusionregex="\(/boot\|/home\|/\)$"
 drives=$(lsblk -lp | grep "part /" | grep -v "$exclusionregex" | awk '{print $1, "(" $4 ")", "on", $7}')
 [[ "$drives" = "" ]] && exit
-chosen=$(echo "$drives" | dmenu -i -p "Unmount which drive?" | awk '{print $1}')
+lines=$(echo "$drives" | wc -l)
+chosen=$(echo "$drives" | dmenu -i -l $lines -p "Unmount which drive?" | awk '{print $1}')
 [[ "$chosen" = "" ]] && exit
 umount $chosen && pgrep -x dunst && notify-send "$chosen unmounted."
 #umount $chosen && notify-send "$chosen unmounted."

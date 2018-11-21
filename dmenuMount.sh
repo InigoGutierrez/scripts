@@ -20,12 +20,14 @@ pgrep -x dmenu && exit
 
 mountable=$(lsblk -lp | grep "part $" | awk '{print $1, "(" $4 ")"}')
 [[ "$mountable" = "" ]] && exit 1
-chosen=$(echo "$mountable" | dmenu -i -p "Mount which drive?" | awk '{print $1}')
+lines=$(echo "$mountable" | wc -l)
+chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $1}')
 [[ "$chosen" = "" ]] && exit 1
 #sudo -u inigo mount "$chosen" && exit 0
 mount "$chosen" && notify-send "$chosen mounted" && exit 0
 dirs=$(find /media /home/inigo/mounts -type d -maxdepth 3 -empty 2>/dev/null)
-mountpoint=$(echo "$dirs" | dmenu -i -p "Type in mount point.")
+lines=$(echo "$dirs" | wc -l)
+mountpoint=$(echo "$dirs" | dmenu -i -l $lines -p "Type in mount point.")
 [[ "$mountpoint" = "" ]] && exit 1
 if [[ ! -d "$mountpoint" ]]; then
 	bash /home/inigo/scripts/prompt.sh "$mountpoint does not exist. Create it?" "mkdir -p $mountpoint"
