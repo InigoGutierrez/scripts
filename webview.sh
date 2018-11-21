@@ -13,7 +13,7 @@ if echo "$1" | grep youtube > /dev/null; then
 		case "$chosen" in
 			mpv) nohup mpv "$1" >/dev/null & ;;
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
-			"mpv (float)") nohup mpv --geometry=-0-0 --autofit=40% --title="mpvfloat" "$1" >/dev/null & ;;
+			"mpv (float)") bash ~/scripts/mpvFloat.sh "$1" ;;
 			qutebrowser) qutebrowser "$1" & ;;
 		esac
 # General checks
@@ -24,7 +24,7 @@ elif echo $mpvFiles | grep -w $ext > /dev/null; then
 		case "$chosen" in
 			mpv) nohup mpv "$1" >/dev/null & ;;
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
-			"mpv (float)") nohup mpv --geometry=-0-0 --autofit=40% --title="mpvfloat" "$1" >/dev/null & ;;
+			"mpv (float)") bash ~/scripts/mpvFloat.sh "$1" ;;
 			qutebrowser) qutebrowser "$1" & ;;
 		esac
 elif echo $wgetFiles | grep -w $ext > /dev/null; then
@@ -34,7 +34,7 @@ else
 		case "$chosen" in
 			mpv) nohup mpv "$1" >/dev/null & ;;
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
-			"mpv (float)") nohup mpv --geometry=-0-0 --autofit=40% --title="mpvfloat" "$1" >/dev/null & ;;
+			"mpv (float)") bash ~/scripts/mpvFloat.sh "$1" ;;
 			qutebrowser) qutebrowser "$1" & ;;
 			pqiv) nohup pqiv -i -P "0,0" -T "pqivfloat" "$1" >/dev/null & ;;
 		esac
