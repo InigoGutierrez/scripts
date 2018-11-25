@@ -18,16 +18,31 @@
 
 pgrep -x dmenu && exit
 
+# Select partition to mount
 mountable=$(lsblk -lp | grep "part $" | awk '{print $1, "(" $4 ")"}')
-[[ "$mountable" = "" ]] && exit 1
+mountable=""
+i=0
+while read -r line
+do
+	i=$((i+1))
+	mountable="$mountable$i. $( echo "$line" | awk '{print $1, "(" $4 ")"}' )"$'\n'
+done <<< "$(lsblk -lp | grep "part $" )"
 lines=$(echo "$mountable" | wc -l)
-chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $1}')
+chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $2}')
 [[ "$chosen" = "" ]] && exit 1
-#sudo -u inigo mount "$chosen" && exit 0
 mount "$chosen" && notify-send "$chosen mounted" && exit 0
+
+# Select mount point
 dirs=$(find /media /home/inigo/mounts -type d -maxdepth 3 -empty 2>/dev/null)
-lines=$(echo "$dirs" | wc -l)
-mountpoint=$(echo "$dirs" | dmenu -i -l $lines -p "Type in mount point.")
+directories=""
+i=0
+while read -r line
+do
+	i=$((i+1))
+	directories="$directories$i. $line"$'\n'
+done <<< "$(find /media /home/inigo/mounts -type d -maxdepth 3 -empty 2>/dev/null)"
+lines=$(echo "$directories" | wc -l)
+mountpoint=$(echo "$directories" | dmenu -i -l $lines -p "Type in mount point." | awk '{print $2}')
 [[ "$mountpoint" = "" ]] && exit 1
 if [[ ! -d "$mountpoint" ]]; then
 	bash /home/inigo/scripts/prompt.sh "$mountpoint does not exist. Create it?" "mkdir -p $mountpoint"
