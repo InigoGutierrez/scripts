@@ -19,7 +19,6 @@
 pgrep -x dmenu && exit
 
 # Select partition to mount
-mountable=$(lsblk -lp | grep "part $" | awk '{print $1, "(" $4 ")"}')
 mountable=""
 i=0
 while read -r line
@@ -27,13 +26,13 @@ do
 	i=$((i+1))
 	mountable="$mountable$i. $( echo "$line" | awk '{print $1, "(" $4 ")"}' )"$'\n'
 done <<< "$(lsblk -lp | grep "part $" )"
+[[ "$mountable" = "" ]] && exit 1
 lines=$(echo "$mountable" | wc -l)
 chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $2}')
 [[ "$chosen" = "" ]] && exit 1
 mount "$chosen" && notify-send "$chosen mounted" && exit 0
 
 # Select mount point
-dirs=$(find /media /home/inigo/mounts -type d -maxdepth 3 -empty 2>/dev/null)
 directories=""
 i=0
 while read -r line
@@ -47,5 +46,4 @@ mountpoint=$(echo "$directories" | dmenu -i -l $lines -p "Type in mount point." 
 if [[ ! -d "$mountpoint" ]]; then
 	bash /home/inigo/scripts/prompt.sh "$mountpoint does not exist. Create it?" "mkdir -p $mountpoint"
 fi
-#sudo -u inigo mount $chosen $mountpoint && pgrep -x dunst && notify-send "$chosen mounted to $mountpoint."
 mount $chosen $mountpoint && pgrep -x dunst && notify-send "$chosen mounted to $mountpoint."

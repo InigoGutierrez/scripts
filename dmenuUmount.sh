@@ -21,10 +21,8 @@ do
 	i=$((i+1))
 	drives="$drives$i. $( echo "$line" | awk '{print $1, "(" $4 ")", "on", $7}' )"$'\n'
 done <<< "$(lsblk -lp | grep "part /" | grep -v "$exclusionregex" )"
-
 [[ "$drives" = "" ]] && exit
 lines=$(echo "$drives" | wc -l)
 chosen=$(echo "$drives" | dmenu -i -l $lines -p "Unmount which drive?" | awk '{print $2}')
 [[ "$chosen" = "" ]] && exit
 umount $chosen && pgrep -x dunst && notify-send "$chosen unmounted."
-#umount $chosen && notify-send "$chosen unmounted."
