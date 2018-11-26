@@ -9,12 +9,13 @@ wgetFiles="mp3 pdf"
 
 # Check youtube link
 if echo "$1" | grep youtube > /dev/null; then
-		chosen=$(echo -e "mpv\nmpv (loop)\nmpv (float)\nqutebrowser" | dmenu -i)
+		chosen=$(echo -e "mpv\nmpv (loop)\nmpv (float)\nqutebrowser\nw3m" | dmenu -i)
 		case "$chosen" in
 			mpv) nohup mpv "$1" >/dev/null & ;;
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
 			"mpv (float)") bash ~/scripts/mpvFloat.sh "$1" ;;
 			qutebrowser) qutebrowser "$1" & ;;
+			w3m) urxvt -e w3m "$1" & ;;
 		esac
 # General checks
 elif echo $pqivFiles | grep -w $ext > /dev/null; then
@@ -30,12 +31,13 @@ elif echo $mpvFiles | grep -w $ext > /dev/null; then
 elif echo $wgetFiles | grep -w $ext > /dev/null; then
 		i3 exec wget "$1" >/dev/null &
 else
-		chosen=$(echo -e "mpv\nmpv (loop)\npqiv\nqutebrowser" | dmenu -i)
+		chosen=$(echo -e "mpv\nmpv (loop)\npqiv\nqutebrowser\nw3m" | dmenu -i)
 		case "$chosen" in
 			mpv) nohup mpv "$1" >/dev/null & ;;
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
 			"mpv (float)") bash ~/scripts/mpvFloat.sh "$1" ;;
-			qutebrowser) qutebrowser "$1" & ;;
 			pqiv) nohup pqiv -i -P "0,0" -T "pqivfloat" "$1" >/dev/null & ;;
+			qutebrowser) qutebrowser "$1" & ;;
+			w3m) urxvt -e w3m "$1" & ;;
 		esac
 fi
