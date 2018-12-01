@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 echo -e "\033[0;30mBlack (0;30)		\033[1;30mLight Black (1;30)"
 echo -e "\033[0;31mRed (0;31)		\033[1;31mLight Red (1;31)"
 echo -e "\033[0;32mGreen (0;32)		\033[1;32mLight Green (1;32)"
