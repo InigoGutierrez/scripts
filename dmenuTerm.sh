@@ -20,7 +20,7 @@ case "$chosen" in
 	neomutt) urxvt -e neomutt ;;
 	syncthing) qutebrowser && urxvt -e ~/scripts/syncthing.sh ;;
 	# sudo stuff
-	brightFirst) urxvt -title floating  -geometry 32x1 -e sudo ~/scripts/brightFirst.sh ;;
-	resetConnection) urxvt -title floating  -geometry 32x1 -e sudo ~/scripts/resetConnection.sh ;;
-	wifiDown) urxvt -title floating  -geometry 32x1 -e sudo ~/scripts/wifiDown.sh ;;
+	brightFirst) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/brightFirst.sh ;;
+	resetConnection) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/resetConnection.sh ;;
+	wifiDown) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/wifiDown.sh ;;
 esac
