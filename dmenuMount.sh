@@ -1,15 +1,15 @@
 #!/bin/bash
-#       _                            
-#    __| |_ __ ___   ___ _ __  _   _ 
+#       _
+#    __| |_ __ ___   ___ _ __  _   _
 #   / _` | '_ ` _ \ / _ \ '_ \| | | |
 #  | (_| | | | | | |  __/ | | | |_| |
 #   \__,_|_| |_| |_|\___|_| |_|\__,_|
-#                              _       
-#  _ __ ___   ___  _   _ _ __ | |_ ___ 
+#                              _
+#  _ __ ___   ___  _   _ _ __ | |_ ___
 # | '_ ` _ \ / _ \| | | | '_ \| __/ __|
 # | | | | | | (_) | |_| | | | | |_\__ \
 # |_| |_| |_|\___/ \__,_|_| |_|\__|___/
-#                                      
+#
 #
 # Gives a dmenu prompt to mount unmounted drives.
 # If they're in /etc/fstab, they'll be mounted automatically.
@@ -30,7 +30,7 @@ done <<< "$(lsblk -lp | grep "part $" )"
 lines=$(echo "$mountable" | wc -l)
 chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $2}')
 [[ "$chosen" = "" ]] && exit 1
-mount "$chosen" && notify-send "$chosen mounted" && exit 0
+mount "$chosen" && pgrep -x dunst && notify-send "$chosen mounted" && exit 0
 
 # Select mount point
 directories=""
