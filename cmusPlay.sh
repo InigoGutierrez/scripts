@@ -5,3 +5,5 @@ if ! pgrep -x cmus ; then
 else
 	cmus-remote -u
 fi
+
+pkill -SIGRTMIN+12 i3blocks
