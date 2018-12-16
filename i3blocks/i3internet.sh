@@ -1,15 +1,15 @@
 #!/bin/sh
 
-#case $BLOCK_BUTTON in
-#	1) $TERMINAL -e nmtui ;;
-#	3) pgrep -x dunst >/dev/null && notify-send "<b>🌐 Internet module:</b>
-#- Click for \`nmtui\` for wifi access
-#📡: no wifi connection
-#📶: wifi connection with quality
-#❎: no ethernet
-#🌐: ethernet working
-#" ;;
-#esac
+case $BLOCK_BUTTON in
+	1) i3-msg "exec urxvt -e nmtui" >/dev/null ;;
+	3) pgrep -x dunst >/dev/null && notify-send "<b>🌐 Internet module:</b>
+- Click for 'nmtui' for wifi access
+📡: no wifi connection
+📶: wifi connection with quality
+❎: no ethernet
+🌐: ethernet working
+" ;;
+esac
 #
 #[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
 #
@@ -23,4 +23,4 @@ wifi="$(nmcli | grep "wlp2s0: conectado to " | cut -d' ' -f4-) ($(ip addr show w
 en=$(ip addr show enp3s0 | grep "inet " | cut -d' ' -f6)
 [ $wstatus = "down" ] && wifi="down"
 [ $estatus = "down" ] && en="down"
-echo "W: 📶 $wifi - E: 🌐 $en"
+echo "📶 $wifi | 🌐 $en"

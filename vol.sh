@@ -1,8 +1,9 @@
 #!/bin/bash
+sink=$(pactl list sinks | grep "Receptor " | cut -d'#' -f2)
 if [ $1 = "mute" ]; then
-	pactl set-sink-mute 0 toggle
+	pactl set-sink-mute $sink toggle
 else
-	pactl set-sink-volume 0 $1%
+	pactl set-sink-volume $sink $1%
 fi
 
 notify-send -t 500 "$(~/scripts/i3blocks/i3vol.sh)"

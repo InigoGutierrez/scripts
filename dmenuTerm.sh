@@ -1,7 +1,7 @@
 #!/bin/bash
 # dmenu script for opening console programs and scripts directly
 
-options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nsyncthing\nbrightFirst\nresetConnection\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython" 
+options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nsyncthing\nbrightFirst\nresetConnection\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nemojis"
 
 chosen=$(echo -e "$options" | dmenu -i -p "~$ urxvt -e")
 
@@ -11,7 +11,7 @@ case "$chosen" in
 	showColors) urxvt -title floating -sh 10 -cr black -geometry 43x9 -e ~/scripts/showColors.sh ;;
 	years) urxvt -title floating -sh 20 -cr black -geometry 66x39 -e ~/scripts/years.sh ;;
 	months) urxvt -title floating -sh 20 -cr black -geometry 22x9 -e ~/scripts/months.sh ;;
-	"bg selection") urxvt -title floating -sh 20 -cr black -geometry "45x6-5-5" -e ~/scripts/bgBrowser.sh ;;
+	"bg selection") urxvt -title floating -sh 20 -cr black -geometry "45x6-5-5" -e ~/scripts/bgBrowser.sh "/home/inigo/images/wallpapers/" ;;
 	python) urxvt -title floating -geometry 80x28 -e python ;;
 	#programs
 	cmus) urxvt -cd ~/music -e cmus ;;
@@ -23,4 +23,6 @@ case "$chosen" in
 	brightFirst) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/brightFirst.sh ;;
 	resetConnection) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/resetConnection.sh ;;
 	wifiDown) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/wifiDown.sh ;;
+	# other
+	emojis) ~/scripts/dmenuUnicode.sh ;;
 esac
