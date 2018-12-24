@@ -6,5 +6,5 @@ else
 	pactl set-sink-volume $sink $1%
 fi
 
-notify-send -t 500 "$(~/scripts/i3blocks/i3vol.sh)"
+notify-send -h string:x-canonical-private-synchronous:vol -t 500 "$(~/scripts/i3blocks/i3vol.sh)"
 pkill -SIGRTMIN+10 i3blocks

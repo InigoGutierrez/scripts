@@ -24,5 +24,5 @@ else
 	#echo "New brightness: $target/$maxbrightness"
 fi
 
-notify-send -t 500 "$(~/scripts/i3blocks/i3brightness.sh)"
+notify-send -h string:x-canonical-private-synchronous:vol -t 500 "$(~/scripts/i3blocks/i3brightness.sh)"
 pkill -SIGRTMIN+11 i3blocks
