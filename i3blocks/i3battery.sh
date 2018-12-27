@@ -24,15 +24,13 @@ elif [ "$capacity" -ge 20 ]; then
 	color="#fe8019"
 else
 	color="#fb4934"
-	warn="❗"
+	[ "$status" != "Charging" ] && warn="❗"
 fi
 
-#[ ! "$capacity" -gt 15 ] && warn="❗"
-[ -z $warn ] && warn=""
+[ -z "$warn" ] && warn=""
 
 [ "$status" = "Charging" ] && color="#1fffaf"
 
-#printf "%s%s%s%s" "$(echo "$status" | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')" "$warn"
 printf "<span color='%s'>%s%s%s</span>" "$color" "$(echo "$status" | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
 
 echo ""

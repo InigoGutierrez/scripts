@@ -20,6 +20,7 @@ function updateFiles {
 }
 
 function updateCurrentFile {
+	[[ $indexSet -lt 1 ]] && indexSet=1 && echo "First image!"
 	i=0
 	for file in $files; do
 		i=$(($i+1))
