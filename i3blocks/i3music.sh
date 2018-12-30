@@ -12,7 +12,7 @@ stat="$(cmus-remote -Q | grep "status " | awk '{print $2}')"
 artist="$(cmus-remote -Q | grep "tag artist " | cut -d' ' -f3-)"
 title="$(cmus-remote -Q | grep "tag title " | cut -d' ' -f3-)"
 [ -z "$artist" ] && artist="(unknown)"
-[ -z "$title" ] && title="$(cmus-remote -Q | grep "file " | cut -d'/' -f5-)"
+[ -z "$title" ] && title="[$(basename "$(cmus-remote -Q | grep "file " | cut -d'/' -f5-)")]"
 if [ "$stat" = "playing" ]; then
 	echo "$symbol $artist ─ $title"
 elif [ "$stat" = "paused" ]; then
