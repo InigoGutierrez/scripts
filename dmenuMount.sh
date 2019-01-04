@@ -39,11 +39,11 @@ while read -r line
 do
 	i=$((i+1))
 	directories="$directories$i. $line"$'\n'
-done <<< "$(find /media /home/inigo/mounts -type d -maxdepth 3 -empty 2>/dev/null)"
+done <<< "$(find /media ~/mounts -type d -maxdepth 3 -empty 2>/dev/null)"
 lines=$(echo "$directories" | wc -l)
 mountpoint=$(echo "$directories" | dmenu -i -l $lines -p "Type in mount point." | awk '{print $2}')
 [[ "$mountpoint" = "" ]] && exit 1
 if [[ ! -d "$mountpoint" ]]; then
-	bash /home/inigo/scripts/prompt.sh "$mountpoint does not exist. Create it?" "mkdir -p $mountpoint"
+	bash ~/scripts/prompt.sh "$mountpoint does not exist. Create it?" "mkdir -p $mountpoint"
 fi
 mount $chosen $mountpoint && pgrep -x dunst && notify-send "$chosen mounted to $mountpoint."

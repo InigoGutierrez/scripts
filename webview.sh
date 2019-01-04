@@ -18,7 +18,7 @@ if echo "$1" | grep youtube >/dev/null; then
 			"mpv (loop)") nohup mpv --loop "$1" >/dev/null & ;;
 			"mpv (float)") ~/scripts/floats/mpvFloat.sh "$1" ;;
 			"mpv (terminal)") mpv --loop -vo caca "$1" ;;
-			"download (y-dl)") /home/inigo/scripts/youtube-dlFloat.sh "$1" & ;;
+			"download (y-dl)") ~/scripts/youtube-dlFloat.sh "$1" & ;;
 			qutebrowser) qutebrowser "$1" & ;;
 			w3m) urxvt -e w3m "$1" & ;;
 		esac
@@ -44,7 +44,7 @@ else
 			"mpv (float)") ~/scripts/floats/mpvFloat.sh "$1" ;;
 			"mpv (terminal)") mpv --loop -vo caca "$1" ;;
 			pqiv) nohup pqiv -i -P "0,0" -T "pqivfloat" "$1" >/dev/null & ;;
-			"download (y-dl)") /home/inigo/scripts/floats/youtube-dlFloat.sh "$1" & ;;
+			"download (y-dl)") ~/scripts/floats/youtube-dlFloat.sh "$1" & ;;
 			qutebrowser) qutebrowser "$1" & ;;
 			w3m) urxvt -e w3m "$1" & ;;
 		esac

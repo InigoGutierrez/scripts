@@ -11,7 +11,7 @@ case "$chosen" in
 	showColors) urxvt -title floating -sh 10 -cr black -geometry 43x9 -e ~/scripts/showColors.sh ;;
 	years) ~/scripts/floats/floatYears.sh ;;
 	months) ~/scripts/floats/floatMonths.sh ;;
-	"bg selection") ~/scripts/floats/floatBgBrowser.sh "/home/inigo/images/wallpapers/" ;;
+	"bg selection") ~/scripts/floats/floatBgBrowser.sh "~/images/wallpapers/" ;;
 	python) urxvt -title floating -geometry 80x28 -e python ;;
 	#programs
 	cmus) urxvt -cd ~/music -e cmus ;;
