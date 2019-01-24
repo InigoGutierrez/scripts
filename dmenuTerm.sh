@@ -1,7 +1,7 @@
 #!/bin/bash
 # dmenu script for opening console programs and scripts directly
 
-options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nsyncthing\nbrightFirst\nresetConnection\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nemojis"
+options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nsyncthing\nbrightFirst\nresetConnection\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode\nemojis"
 
 chosen=$(echo -e "$options" | dmenu -i -p "~$ urxvt -e")
 
@@ -24,5 +24,7 @@ case "$chosen" in
 	resetConnection) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/resetConnection.sh ;;
 	wifiDown) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/wifiDown.sh ;;
 	# other
+	musicMode) ~/scripts/musicMode.sh ;;
+	"Close music mode") ~/scripts/closeMusicMode.sh  ;;
 	emojis) ~/scripts/dmenuUnicode.sh ;;
 esac

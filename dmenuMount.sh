@@ -29,10 +29,10 @@ done <<< "$(lsblk -lp | grep "part $" )"
 [[ "$mountable" = "" ]] && exit 1
 lines=$(echo "$mountable" | wc -l)
 chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $2}')
-[[ "$chosen" = "" ]] && exit 1
-mount "$chosen" && pgrep -x dunst && notify-send "$chosen mounted" && exit 0
+[ "$chosen" == "" ] && exit 1
+sudo mount "$chosen" && pgrep -x dunst && notify-send "$chosen mounted" && exit 0
 
-# Select mount point
+# Select mount point (reached if previous mount failed, e.g. device not in /etc/fstab)
 directories=""
 i=0
 while read -r line
@@ -42,7 +42,7 @@ do
 done <<< "$(find /media ~/mounts -type d -maxdepth 3 -empty 2>/dev/null)"
 lines=$(echo "$directories" | wc -l)
 mountpoint=$(echo "$directories" | dmenu -i -l $lines -p "Type in mount point." | awk '{print $2}')
-[[ "$mountpoint" = "" ]] && exit 1
+[ "$mountpoint" == "" ] && exit 1
 if [[ ! -d "$mountpoint" ]]; then
 	bash ~/scripts/prompt.sh "$mountpoint does not exist. Create it?" "mkdir -p $mountpoint"
 fi

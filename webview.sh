@@ -4,7 +4,7 @@
 
 ext="${1##*.}"
 mpvFiles="mkv mp4 gif"
-pqivFiles="png jpg jpeg jpe"
+imageFiles="png jpg jpeg jpe"
 wgetFiles="mp3 pdf"
 
 # Reproduce in terminal if no X server
@@ -23,8 +23,12 @@ if echo "$1" | grep youtube >/dev/null; then
 			w3m) urxvt -e w3m "$1" & ;;
 		esac
 # General checks
-elif echo $pqivFiles | grep -w $ext >/dev/null; then
-		nohup pqiv -i -P "0,0" -T "pqivfloat" "$1" >/dev/null &
+elif echo $imageFiles | grep -w $ext >/dev/null; then
+		chosen=$(echo -e "pqiv\nwget" | dmenu -i)
+		case "$chosen" in
+			pqiv) nohup pqiv -i  "$1" >/dev/null & ;;
+			wget) nohup wget "$1" & ;;
+		esac
 elif echo $mpvFiles | grep -w $ext >/dev/null; then
 		chosen=$(echo -e "mpv\nmpv (loop)\nmpv (terminal)\nqutebrowser" | dmenu -i)
 		case "$chosen" in
