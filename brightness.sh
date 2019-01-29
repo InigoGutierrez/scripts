@@ -5,7 +5,8 @@ maxbrightness_file=/sys/class/backlight/intel_backlight/max_brightness
 
 permissions=$(ls -l $brightness_file | awk '{print $1}')
 if [ $permissions != "-rw-rw-rw-" ]; then
-	urxvt -title floating -geometry 32x1 -e sudo ~/scripts/brightFirst.sh
+	#urxvt -title floating -geometry 32x1 -e sudo ~/scripts/brightFirst.sh
+	sudo ~/scripts/brightFirst.sh
 fi
 
 brightness=$(< $brightness_file)
