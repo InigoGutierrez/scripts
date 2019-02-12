@@ -2,13 +2,16 @@
 
 [ "$(pgrep -x musicMode.sh)" != "$$" ] && notify-send -t 3000 "Already running! Exiting this new instance." && exit 0 #Check if already running
 [ -z "$(pgrep -x cmus)" ] && notify-send -t 3000 "cmus not running: No music mode." && exit 0 #Check that cmus is running
-# Get file name
-file=""
+
+mkdir /tmp/musicMode
+coverPath="/tmp/musicMode/cover.jpg"
+
 i3-msg "workspace 6" >/dev/null #Switch to music workspace
 i3-msg "gaps inner current set 0; gaps outer current set 0; bar mode hide"
 i3-msg "exec urxvt -title 'noborder' -sh 100 -fn xft:monospace:size=4 -e vis -c ~/.config/vis/configMusicMode" # Start music visualizer
+
 # Loop checking current song and checking background
-coverPath="/home/inigo/images/musicMode/cover.jpg"
+file=""
 while [ true ]
 do
 	if [ "$file" != "$(cmus-remote -Q | grep "^file" | cut -d' ' -f2-)" ]; then
