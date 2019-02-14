@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$(pgrep -x musicMode.sh)" != "$$" ] && notify-send -t 3000 "Already running! Exiting this new instance." && exit 0 #Check if already running
-[ -z "$(pgrep -x cmus)" ] && notify-send -t 3000 "cmus not running: No music mode." && exit 0 #Check that cmus is running
+[ -z "$(pgrep -x cmus)" ] && notify-send -t 3000 "cmus not running. Open it first." && exit 0 #Check that cmus is running
 
 mkdir /tmp/musicMode
 coverPath="/tmp/musicMode/cover.jpg"
@@ -22,6 +22,17 @@ do
 		notify-send -h string:x-canonical-private-synchronous:musicMode -t 0 "$(~/scripts/i3blocks/i3music.sh)"
 		ffmpeg -i "$file" $coverPath >/dev/null
 		feh --no-fehbg --bg-max $coverPath >/dev/null
-		sleep 1
+		videoFile="$(ls -d ~/videos/music/* | grep "$title")"
+		if [ "$videoFile" ]; then # videoclip found
+			cmus-remote -u
+			mpv --fs "$videoFile"
+			while [ "$(pgrep -x mpv)" ]
+			do
+				sleep 1
+			done
+			cmus-remote -n
+		fi
 	fi
+	[ -z "$(pgrep -x cmus)" ] && notify-send "Cmus closed." && closeMusicMode.sh
+	sleep 1
 done
