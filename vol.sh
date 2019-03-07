@@ -1,5 +1,5 @@
-#!/bin/bash
-sink=$(pactl list sinks | grep "Receptor " | cut -d'#' -f2)
+#!/bin/sh
+sink=$(pactl list sinks | grep "^Sink " | cut -d'#' -f2)
 if [ $1 = "mute" ]; then
 	pactl set-sink-mute $sink toggle
 else

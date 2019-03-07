@@ -31,7 +31,7 @@ fi
 
 [ "$status" = "Charging" ] && color="#1fffaf"
 
-remaining=$(acpi | cut -d' ' -f5)
+remaining=$(acpi | cut -d' ' -f5 | cut -d':' -f-2)
 printf "<span color='%s'>%s%s%s (%s)</span>" "$color" "$(echo "$status" | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')" "$remaining"
 
 echo ""
