@@ -1,14 +1,14 @@
-#!/bin/bash
-#  _   _  ___  __ _ _ __ ___ 
+#!/bin/sh
+#  _   _  ___  __ _ _ __ ___
 # | | | |/ _ \/ _` | '__/ __|
 # | |_| |  __/ (_| | |  \__ \
 #  \__, |\___|\__,_|_|  |___/
-#  |___/                     
+#  |___/
 #
 # Navigates through year calendars and exits with q
 
 year=$(date +%Y)
-ncal -b -y
+cal -m -y
 read -n 1 input
 
 while [ "$input" != "q" ]
@@ -22,7 +22,7 @@ do
 			;;
 	esac
 		clear
-		ncal -b -y $year
+		cal -m -y $year
 		read -n 1 input
 done
-                           
+

@@ -1,15 +1,15 @@
-#!/bin/bash
-#                        _   _         
-#  _ __ ___   ___  _ __ | |_| |__  ___ 
+#!/bin/sh
+#                        _   _
+#  _ __ ___   ___  _ __ | |_| |__  ___
 # | '_ ` _ \ / _ \| '_ \| __| '_ \/ __|
 # | | | | | | (_) | | | | |_| | | \__ \
 # |_| |_| |_|\___/|_| |_|\__|_| |_|___/
-# 
+#
 # Navigates through month calendars and exits with q
 
 month=$(date +%m)
 year=$(date +%Y)
-ncal -b -m $month $year
+cal -m $month $year
 read -n 1 input
 
 while [ "$input" != "q" ]
@@ -22,7 +22,7 @@ do
 			then
 				year=$(($year+1))
 			fi
-			ncal -b -m $month $year
+			cal -m $month $year
 			read -n 1 input
 			;;
 		h)
@@ -33,9 +33,9 @@ do
 				month=12
 				year=$(($year-1))
 			fi
-			ncal -b -m $month $year
+			cal -m $month $year
 			read -n 1 input
 			;;
 	esac
 done
-                                     
+
