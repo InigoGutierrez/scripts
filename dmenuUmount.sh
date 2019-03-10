@@ -13,16 +13,18 @@
 # Gives a dmenu prompt to umount mounted drives.
 # Shows mounted partitions; select one to unmount.
 
-exclusionregex="\(/boot\|/home\|/\)$"
+exclusionregex="\(/boot/efi\|/home\|/\)$"
+list="$(lsblk -lp | grep "part /" | grep -v "$exclusionregex")"
+[ "$list" == "" ] && notify-send -t 2000 "No devices found to unmount." && exit 0
 drives=""
 i=0
 while read -r line
 do
 	i=$((i+1))
 	drives="$drives$i. $( echo "$line" | awk '{print $1, "(" $4 ")", "on", $7}' )"$'\n'
-done <<< "$(lsblk -lp | grep "part /" | grep -v "$exclusionregex")"
+done <<< "$list"
 [ "$drives" == "" ] && exit
 lines=$(echo "$drives" | wc -l)
 chosen=$(echo "$drives" | dmenu -i -l $lines -p "Unmount which drive?" | awk '{print $2}')
 [ "$chosen" == "" ] && exit
-umount $chosen && pgrep -x dunst && notify-send "$chosen unmounted."
+sudo umount $chosen && pgrep -x dunst && notify-send "$chosen unmounted."
