@@ -1,7 +1,7 @@
 #!/bin/bash
 # dmenu script for opening console programs and scripts directly
 
-options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nweather\nsyncthing\nbrightFirst\nresetConnection\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode\nemojis"
+options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nweather\nsyncthing\nbrightFirst\nresetConnection\nwifiUp\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode\nemojis"
 
 chosen=$(echo -e "$options" | dmenu -i -p "~$ urxvt -e")
 
@@ -21,12 +21,11 @@ case "$chosen" in
 	neomutt) urxvt -e neomutt ;;
 	syncthing) urxvt -e ~/scripts/syncthing.sh ;;
 	# sudo stuff
-	#brightFirst) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/brightFirst.sh ;;
 	brightFirst) sudo ~/scripts/brightFirst.sh ;;
 	#resetConnection) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/resetConnection.sh ;;
 	resetConnection) sudo ~/scripts/resetConnection.sh ;;
-	#wifiDown) urxvt -title floating -geometry 32x1 -e sudo ~/scripts/wifiDown.sh ;;
-	wifiDown) sudo ~/scripts/wifiDown.sh ;;
+	wifiUp) wifiUp.sh ;;
+	wifiDown) wifiDown.sh ;;
 	# other
 	musicMode) ~/scripts/musicMode.sh ;;
 	"Close music mode") ~/scripts/closeMusicMode.sh  ;;
