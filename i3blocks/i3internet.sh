@@ -11,14 +11,17 @@ if [ $wstatus = "down" ]; then
 	wifi="❌"
 else
 	# with IP
-	wifi="$(nmcli | grep "wlp2s0: conectado to " | cut -d' ' -f4-) ($(ip addr show wlp2s0 | grep "inet " | cut -d' ' -f6)) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
-	# no IP
-	#wifi="$(nmcli | grep "wlp2s0: conectado to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
+	#wifi="✔️$(nmcli | grep "wlp2s0: connected to " | cut -d' ' -f4-) ($(ip addr show wlp2s0 | grep "inet " | cut -d' ' -f6)) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
+	# with name
+	wifi="✔️ $(nmcli | grep "wlp2s0: connected to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
 fi
 if [ $estatus = "down" ]; then
 	en="❌"
 else
-	en=$(ip addr show enp3s0 | grep "inet " | cut -d' ' -f6)
+	# with IP
+	#en=$(ip addr show enp3s0 | grep "inet " | cut -d' ' -f6)
+	# no IP
+	en=✔️
 fi
 
-echo "📶$wifi 🌐$en"
+echo "📶$wifi  🌐$en"
