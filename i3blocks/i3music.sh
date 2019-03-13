@@ -7,7 +7,7 @@ case $BLOCK_BUTTON in
 esac
 
 symbol=🎵
-pgrep -x cmus >/dev/null || (echo "$symbol" && exit)
+pgrep -x cmus >/dev/null || exit 0
 stat="$(cmus-remote -Q | grep "status " | awk '{print $2}')"
 artist="$(cmus-remote -Q | grep "tag artist " | cut -d' ' -f3-)"
 title="$(cmus-remote -Q | grep "tag title " | cut -d' ' -f3-)"
