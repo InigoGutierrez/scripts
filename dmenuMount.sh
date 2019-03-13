@@ -24,7 +24,12 @@ i=0
 while read -r line
 do
 	i=$((i+1))
-	mountable="$mountable$i. $( echo "$line" | awk '{print $1, "(" $4 ")"}' )"$'\n'
+	name="$(echo "$line" | awk '{print $1}')"
+	size="$(echo "$line" | awk '{print $4}')"
+	label="$(lsblk -lpo "name,label" | grep "$name" | awk '{print $2}')"
+	fstype="$(lsblk -lpo "name,fstype" | grep "$name" | awk '{print $2}')"
+	mountable="$mountable$i. $name ($size) \"$label\" [$fstype]"$'\n'
+	#$( echo "$line" | awk '{print $, "(" $2 ")", "\"" $3 "\"", "[" $4 "]"}' )"$'\n'
 done <<< "$(lsblk -lp | grep "part $" )"
 [[ "$mountable" = "" ]] && exit 1
 lines=$(echo "$mountable" | wc -l)

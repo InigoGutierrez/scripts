@@ -21,7 +21,12 @@ i=0
 while read -r line
 do
 	i=$((i+1))
-	drives="$drives$i. $( echo "$line" | awk '{print $1, "(" $4 ")", "on", $7}' )"$'\n'
+	name="$(echo "$line" | awk '{print $1}')"
+	size="$(echo "$line" | awk '{print $4}')"
+	mountpoint="$(echo "$line" | awk '{print $7}')"
+	label="$(lsblk -lpo "name,label" | grep "$name" | awk '{print $2}')"
+	fstype="$(lsblk -lpo "name,fstype" | grep "$name" | awk '{print $2}')"
+	drives="$drives$i. $name ($size) \"$label\" [$fstype] on $mountpoint"$'\n'
 done <<< "$list"
 [ "$drives" == "" ] && exit
 lines=$(echo "$drives" | wc -l)
