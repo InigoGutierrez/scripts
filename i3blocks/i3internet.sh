@@ -1,25 +1,32 @@
 #!/bin/sh
 
+# Shows status of wifi and ethernet connections.
+
+# Depends on nmcli and ip for IPs
 case $BLOCK_BUTTON in
 	1) i3-msg "exec urxvt -e nmtui" >/dev/null ;;
 esac
 
-wstatus=$(cat /sys/class/net/wlp2s0/operstate)
-estatus=$(cat /sys/class/net/enp3s0/operstate)
+wifiDev="wlp2s0"
+ethDev="enp3s0"
+wstatus=$(cat /sys/class/net/$wifiDev/operstate)
+estatus=$(cat /sys/class/net/$ethDev/operstate)
 
 if [ $wstatus = "down" ]; then
 	wifi="❌"
 else
 	# with IP
-	#wifi="✔️$(nmcli | grep "wlp2s0: connected to " | cut -d' ' -f4-) ($(ip addr show wlp2s0 | grep "inet " | cut -d' ' -f6)) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
+	#wifi="✔️$(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(ip addr show $wifiDev | grep "inet " | cut -d' ' -f6)) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
 	# with name
-	wifi="✔️ $(nmcli | grep "wlp2s0: connected to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
+	wifi="✔️ $(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
 fi
-if [ $estatus = "down" ]; then
+if [ -z "$(nmcli | grep $ethDev)" ]; then
+	en="❌❗ No $ethDev device found"
+elif [ $estatus = "down" ]; then
 	en="❌"
 else
 	# with IP
-	#en=$(ip addr show enp3s0 | grep "inet " | cut -d' ' -f6)
+	#en=$(ip addr show $ethDev | grep "inet " | cut -d' ' -f6)
 	# no IP
 	en=✔️
 fi
