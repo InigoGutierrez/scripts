@@ -1,7 +1,11 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) notify-send -h string:x-canonical-private-synchronous:disk -t 3000 "$(df -h | grep ^/dev/sda8 | awk '{print "/: Used "$3"/"$2" ("$5")"}')"
+	1)
+		root="$(df -h | grep /$ | awk '{print "/: Used "$3"/"$2" ("$5")"}')"
+		home="$(df -h | grep /home$ | awk '{print "/home: Used "$3"/"$2" ("$5")"}')"
+		notify-send -h string:x-canonical-private-synchronous:disk -t 5000 "$root
+$home" ;;
 esac
 
-df -h | grep ^/dev/sda8 | awk '{print $4"/"$2}'
+df -h | grep "/home$" | awk '{print $4"/"$2}'
