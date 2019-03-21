@@ -1,7 +1,7 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) notify-send -h string:x-canonical-private-synchronous:cpu -t 5000 "Highest CPU processes:
+	1) dunstify -r $(dunstifyIDs.sh "cpu") -t 5000 "Highest CPU processes:
 $(ps axch -o cmd:18,%cpu --sort=-%cpu | sed 10q)" ;;
 esac
 
