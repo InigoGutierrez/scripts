@@ -12,8 +12,11 @@ ethDev="enp3s0"
 wstatus=$(cat /sys/class/net/$wifiDev/operstate)
 estatus=$(cat /sys/class/net/$ethDev/operstate)
 
-if [ $wstatus = "down" ]; then
+if [ "$wstatus" = "down" ]; then
 	wifi="❌"
+elif [ "$(nmcli | grep "$wifiDev: connecting ")" ]; then
+		step="$(nmcli | grep "$wifiDev: connecting " | sed 's/^.*(/(/;s/).*$/)/')"
+	wifi="⚙️ <span color='#fabd2f'>$(nmcli | grep "$wifiDev: " | cut -d' ' -f5-) $step</span>"
 else
 	# with IP
 	#wifi="✔️$(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(ip addr show $wifiDev | grep "inet " | cut -d' ' -f6)) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
@@ -22,7 +25,7 @@ else
 fi
 if [ -z "$(nmcli | grep $ethDev)" ]; then
 	en="❌❗ No $ethDev device found"
-elif [ $estatus = "down" ]; then
+elif [ "$estatus" = "down" ]; then
 	en="❌"
 else
 	# with IP
