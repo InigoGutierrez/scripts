@@ -2,8 +2,9 @@
 
 # Generates an i3lock bg based on a screenshot.
 
-imgLock="$HOME/images/padlocks.png"
+imgLock="$HOME/images/icons/lock.png"
+imgTemp="/tmp/i3lockss.png"
 imgFinal="/tmp/lockFinal$(date +"%H%M%S").png"
-maim /tmp/i3lockss.png
-convert /tmp/i3lockss.png -paint 1 -swirl -120 "$imgLock" -gravity center -composite "$imgFinal"
-i3lock -i "$imgFinal" -f
+maim "$imgTemp"
+[ -e "$imgLock" ] && convert "$imgTemp" -paint 1 -swirl -30 "$imgLock" -gravity center -composite "$imgFinal"
+i3lock -i "$imgFinal" -f || i3lock -i "$imgTemp" -f
