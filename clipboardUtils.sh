@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Manipulate the X selection
 # Dependencies: dmenu, xsel

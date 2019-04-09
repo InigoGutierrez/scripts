@@ -33,7 +33,7 @@ do
 done <<< "$(lsblk -lp | grep "part $" )"
 [[ "$mountable" = "" ]] && exit 1
 lines=$(echo "$mountable" | wc -l)
-chosen=$(echo "$mountable" | dmenu -i -l $lines -p "Mount which drive?" | awk '{print $2}')
+chosen=$(echo "$mountable" | dmenu -i -l "$lines" -p "Mount which drive?" | awk '{print $2}')
 [ "$chosen" == "" ] && exit 1
 sudo mount "$chosen" && pgrep -x dunst && notify-send "$chosen mounted." && exit 0
 
@@ -44,11 +44,11 @@ while read -r line
 do
 	i=$((i+1))
 	directories="$directories$i. $line"$'\n'
-done <<< "$(find /mnt $HOME/mounts -type d -maxdepth 3 -empty 2>/dev/null)"
+done <<< "$(find /mnt "$HOME/mounts" -type d -maxdepth 3 -empty 2>/dev/null)"
 lines=$(echo "$directories" | wc -l)
-mountpoint=$(echo "$directories" | dmenu -i -l $lines -p "Type in mount point." | awk '{print $2}')
+mountpoint=$(echo "$directories" | dmenu -i -l "$lines" -p "Type in mount point." | awk '{print $2}')
 [ "$mountpoint" == "" ] && exit 1
 if [[ ! -d "$mountpoint" ]]; then
 	prompt.sh "$mountpoint does not exist. Create it?" "sudo mkdir -p $mountpoint"
 fi
-sudo mount $chosen $mountpoint && pgrep -x dunst && notify-send "$chosen mounted to $mountpoint."
+sudo mount "$chosen" "$mountpoint" && pgrep -x dunst && notify-send "$chosen mounted to $mountpoint."

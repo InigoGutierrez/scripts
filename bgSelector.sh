@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $(date +%H) -gt 18 ]
+if [ "$(date +%H)" -gt 18 ]
 then
 	feh --bg-scale ~/images/wallpapers/night*
 else

@@ -20,7 +20,7 @@ elif [ "$capacity" -ge 60 ]; then
 	color="#ebdbb2"
 elif [ "$capacity" -ge 40 ]; then
 	color="#fabd2f"
-elif [ "$capacity" -ge 20 ]; then
+elif [ "$capacity" -ge 10 ]; then
 	color="#fe8019"
 else
 	color="#fb4934"

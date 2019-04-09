@@ -8,7 +8,7 @@ chosen=$(echo -e "$options" | dmenu -i -p "~$ urxvt -e")
 case "$chosen" in
 	# floating windows
 	neofetch) urxvt -title invisible -sh 100 -cr "#aaddff" -geometry "80x21+50+35" -e ~/scripts/neofetch.sh ;;
-	showColors) urxvt -title floating -sh 10 -cr black -geometry 43x9 -e ~/scripts/showColors.sh ;;
+	showColors) urxvt -title floating -sh 10 -cr black -geometry 44x9 -e ~/scripts/showColors.sh ;;
 	years) ~/scripts/floats/floatYears.sh ;;
 	months) ~/scripts/floats/floatMonths.sh ;;
 	weather) urxvt -title floating -sh 10 -geometry 125x40 -e weather.sh ;;

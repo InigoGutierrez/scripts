@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #          _
 #       __| |_ __ ___   ___ _ __  _   _
 #      / _` | '_ ` _ \ / _ \ '_ \| | | |
@@ -15,7 +15,7 @@
 
 exclusionregex="\(/boot/efi\|/home\|/\)$"
 list="$(lsblk -lp | grep "part /" | grep -v "$exclusionregex")"
-[ "$list" == "" ] && notify-send -t 2000 "No devices found to unmount." && exit 0
+[ "$list" = "" ] && notify-send -t 2000 "No devices found to unmount." && exit 0
 drives=""
 i=0
 while read -r line
@@ -28,8 +28,8 @@ do
 	fstype="$(lsblk -lpo "name,fstype" | grep "$name" | awk '{print $2}')"
 	drives="$drives$i. $name ($size) \"$label\" [$fstype] on $mountpoint"$'\n'
 done <<< "$list"
-[ "$drives" == "" ] && exit
+[ "$drives" = "" ] && exit
 lines=$(echo "$drives" | wc -l)
-chosen=$(echo "$drives" | dmenu -i -l $lines -p "Unmount which drive?" | awk '{print $2}')
-[ "$chosen" == "" ] && exit
-sudo umount $chosen && pgrep -x dunst && notify-send "$chosen unmounted."
+chosen=$(echo "$drives" | dmenu -i -l "$lines" -p "Unmount which drive?" | awk '{print $2}')
+[ "$chosen" = "" ] && exit
+sudo umount "$chosen" && pgrep -x dunst && notify-send "$chosen unmounted."

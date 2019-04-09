@@ -11,7 +11,7 @@ i3-msg "exec urxvt -title 'noborder' -sh 100 -fn xft:monospace:size=4 -e vis -c 
 
 # Loop checking current song and setting background
 file=""
-while [ true ]
+while true
 do
 	# Check if current file has changed
 	if [ "$file" != "$(cmus-remote -Q | grep "^file" | cut -d' ' -f2-)" ]; then
@@ -21,10 +21,10 @@ do
 		# Get title. It is only used for video search.
 		title="$(cmus-remote -Q | grep "^tag title " | cut -d' ' -f3-)"
 		[ -z "$title" ] && title="$(basename "$(cmus-remote -Q | grep "^file" | cut -d' ' -f2- | cut -d'.' -f1 )")"
-		dunstify -r $(dunstifyIDs.sh musicMode) -t 0 "$(~/scripts/i3blocks/i3music.sh)"
+		dunstify -r "$(dunstifyIDs.sh musicMode)" -t 0 "$(~/scripts/i3blocks/i3music.sh)"
 		ffmpeg -i "$file" "$coverPath" >/dev/null
 		feh --no-fehbg --bg-max "$coverPath" >/dev/null #|| feh --no-fehbg --bg-max $HOME/images/wallpapers/bg_* >/dev/null
-		videoFile="$(ls -d $HOME/videos/music/* | grep "$title")"
+		videoFile="$(find "$HOME/videos/music" | grep "$title")"
 		if [ "$videoFile" ]; then # videoclip found
 			cmus-remote -u
 			mpv --fs "$videoFile"
