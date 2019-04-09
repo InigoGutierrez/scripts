@@ -6,8 +6,8 @@
 coverPath="/tmp/musicMode.png"
 
 i3-msg "workspace 6" >/dev/null #Switch to music workspace
-i3-msg "gaps inner current set 0; gaps outer current set 0; bar mode hide"
-i3-msg "exec urxvt -title 'noborder' -sh 100 -fn xft:monospace:size=4 -e vis -c ~/.config/vis/configMusicMode" # Start music visualizer
+i3-msg "gaps inner current set 0; gaps outer current set 0; bar mode invisible"
+i3-msg "exec urxvt -tr -title 'noborder' -sh 100 -fn xft:monospace:size=4 -e vis -c ~/.config/vis/configMusicMode" # Start music visualizer
 
 # Loop checking current song and setting background
 file=""
