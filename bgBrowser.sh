@@ -23,7 +23,7 @@ function updateCurrentFile {
 	[[ $indexSet -lt 1 ]] && indexSet=1 && echo "First image!"
 	i=0
 	for file in $files; do
-		i=$(($i+1))
+		i=$((i+1))
 		if [ $i -eq $indexSet ]; then
 			selectedFile="$file"
 		fi
@@ -31,7 +31,7 @@ function updateCurrentFile {
 }
 
 function updateBg {
-	feh --bg-scale "$folder""$selectedFile"
+	feh --no-fehbg --bg-max "$folder""$selectedFile"
 	echo "New bg: $selectedFile"
 }
 
@@ -47,13 +47,13 @@ while [ "$input" != "q" ]
 do
 	case $input in
 		l)
-			indexSet=$(($indexSet+1))
+			indexSet=$((indexSet+1))
 			clear
 			updateCurrentFile
 			updateBg
 			;;
 		h)
-			indexSet=$(($indexSet-1))
+			indexSet=$((indexSet-1))
 			clear
 			updateCurrentFile
 			updateBg
@@ -65,7 +65,7 @@ do
 				clear && echo "Prev name: $selectedFile" && echo "New name: "
 				read newName
 				if [ "$newName" = "$selectedFile" ]; then
-					clear && echo "Same name ("$newName") - No changes"
+					clear && echo "Same name ($newName) - No changes"
 				else
 					# Check that name does not exist
 					if [ -f "$folder$newName" ]; then #FIX
