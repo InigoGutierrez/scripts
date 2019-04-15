@@ -4,5 +4,8 @@
 
 folder="$HOME/litter/"
 [ -d "$folder" ] || mkdir "$folder"
-mv "$1" "$folder"
+for file in "$@"
+do
+	mv "$file" "$folder"
+done
 pkill -SIGRTMIN+14 i3blocks
