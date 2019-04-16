@@ -11,8 +11,9 @@ case $BLOCK_BUTTON in
 - Text color reflects charge left" ;;
 esac
 
-capacity=$(cat /sys/class/power_supply/"$1"/capacity) || exit
 status=$(cat /sys/class/power_supply/"$1"/status)
+capacity=$(cat /sys/class/power_supply/"$1"/capacity) || exit
+remaining=$(acpi | cut -d' ' -f5 | cut -d':' -f-2)
 
 if [ "$capacity" -ge 80 ]; then
 	color="#b8bb26"
@@ -24,14 +25,13 @@ elif [ "$capacity" -ge 10 ]; then
 	color="#fe8019"
 else
 	color="#fb4934"
-	[ "$status" != "Charging" ] && warn="❗"
+	[ "$status" != "Charging" ] && warn="❗" && dunstify -u critical -r "$(dunstifyIDs.sh "batteryLow")" "Battery remaining: $capacity% ($remaining)"
 fi
 
 [ -z "$warn" ] && warn=""
 
 [ "$status" = "Charging" ] && color="#1fffaf"
 
-remaining=$(acpi | cut -d' ' -f5 | cut -d':' -f-2)
 printf "<span color='%s'>%s%s%s (%s)</span>" "$color" "$(echo "$status" | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')" "$remaining"
 
 echo ""
