@@ -9,5 +9,5 @@ elif [ "$dict" = "ES" ]; then
 	word="$(dmenu -i -l 10 -p "Elige una palabra:" < /usr/share/dict/palabras.txt)"
 fi
 [ "$word" ] || exit 0
-echo "$word" | xsel -bi
+echo "$word" | tr -d '\n' | xsel -bi
 dunstify -t 2000 "Written [$word] into clipboard."

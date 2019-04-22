@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 case $BLOCK_BUTTON in
 	1) i3-msg "exec urxvt -e alsamixer" >/dev/null ;;
@@ -7,7 +7,7 @@ esac
 
 vol=$(pactl list sinks | grep "Volume:" | sed 1q | awk '{print $5}')
 mute=$(pactl list sinks | grep "Mute:" | cut -d' ' -f2)
-if [ $mute = "no" ]; then
+if [ "$mute" = "no" ]; then
 	echo "🔊 $vol"
 else
 	echo "🔇($vol)"

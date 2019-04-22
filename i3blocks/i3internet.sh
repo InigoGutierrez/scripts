@@ -24,7 +24,7 @@ else
 	wifi="✔️ $(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
 fi
 if [ -z "$(nmcli | grep $ethDev)" ]; then
-	en="❌❗ No $ethDev device found"
+	en="❌❗ No $ethDev"
 elif [ "$estatus" = "down" ]; then
 	en="❌"
 else
