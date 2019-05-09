@@ -21,7 +21,7 @@ else
 	# with IP
 	#wifi="✔️$(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(ip addr show $wifiDev | grep "inet " | cut -d' ' -f6)) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
 	# with name
-	wifi="✔️ $(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))"
+	wifi="✔️ <span color='#79ff79'>$(nmcli | grep "$wifiDev: connected to " | cut -d' ' -f4-) ($(grep "^\s*w" /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}'))</span>"
 fi
 if [ -z "$(nmcli | grep $ethDev)" ]; then
 	en="❌❗ No $ethDev"
