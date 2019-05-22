@@ -3,7 +3,7 @@
 
 options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nweather\nbrightFirst\nReset NetworkManager\nwifiUp\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode\nemojis"
 
-chosen=$(echo -e "$options" | dmenu -i -p "~$ urxvt -e")
+chosen=$(echo "$options" | dmenu -i -p "~$ urxvt -e")
 
 case "$chosen" in
 	# floating windows
@@ -12,7 +12,7 @@ case "$chosen" in
 	years) ~/scripts/floats/floatYears.sh ;;
 	months) ~/scripts/floats/floatMonths.sh ;;
 	weather) urxvt -title floating -sh 10 -geometry 125x40 -e weather.sh ;;
-	"bg selection") ~/scripts/floats/floatBgBrowser.sh "~/images/wallpapers/" ;;
+	"bg selection") ~/scripts/floats/floatBgBrowser.sh "$HOME/images/wallpapers/" ;;
 	python) urxvt -title floating -geometry 80x28 -e python ;;
 	#programs
 	cmus) urxvt -cd ~/music -e cmus ;;
