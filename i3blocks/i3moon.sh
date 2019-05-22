@@ -10,5 +10,10 @@ pom | grep -q "Full moon" && moon=🌕
 pom | grep -q "Waning Gibbous" && moon=🌖
 pom | grep -q "Last Quarter" && moon=🌗
 pom | grep -q "Waning Crescent" && moon=🌘
+
+case $BLOCK_BUTTON in
+	1) dunstify "$moon $(pom) $moon";;
+esac
+
 echo "$moon"
 
