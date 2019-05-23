@@ -4,7 +4,7 @@
 # Port and input for pass are optional
 
 hostsfile="$HOME/.hosts"
-hostnames="$(cut -d'#' -f1 < "$hostsfile" | fzf)"
+hostnames="$(sed '/^#.*$/d' < "$hostsfile" | cut -d'#' -f1 | fzf)"
 host="$(grep "$hostnames" < "$hostsfile")"
 hostname="$(echo "$host" | cut -d'#' -f1)"
 hostaddress="$(echo "$host" | cut -d'#' -f2)"
