@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #                        _   _
 #  _ __ ___   ___  _ __ | |_| |__  ___
 # | '_ ` _ \ / _ \| '_ \| __| '_ \/ __|
@@ -9,33 +9,32 @@
 
 month=$(date +%m)
 year=$(date +%Y)
-cal -m $month $year
-read -n 1 input
+cal -m "$month" "$year"
+read -rn 1 input
 
 while [ "$input" != "q" ]
 do
 	case $input in
 		l)
 			clear
-			month=$(($month%12+1))
-			if [ $month -eq 1 ]
+			month=$((month%12+1))
+			if [ "$month" -eq 1 ]
 			then
-				year=$(($year+1))
+				year=$((year+1))
 			fi
-			cal -m $month $year
-			read -n 1 input
 			;;
 		h)
 			clear
-			month=$(($(($month-1))%12))
-			if [ $month -eq 0 ]
+			month=$(($((month-1))%12))
+			if [ "$month" -eq 0 ]
 			then
 				month=12
-				year=$(($year-1))
+				year=$((year-1))
 			fi
-			cal -m $month $year
-			read -n 1 input
 			;;
 	esac
+	clear
+	cal -m "$month" "$year"
+	read -rn 1 input
 done
 
