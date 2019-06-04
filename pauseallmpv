@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# From Luke Smith
+#for i in $(ls /tmp/mpvsoc*); do
+#	echo '{ "command": ["set_property", "pause", true] }' | socat - "$i";
+#done
+
+xdotool search --class mpv | xargs -I % xdotool key --window % comma
