@@ -1,7 +1,7 @@
 #!/bin/sh
 # dmenu script for opening console programs and scripts directly
 
-options="neofetch\ncmus\ncmus (float)\nnewsboat\nneomutt\nweather\nbrightFirst\nReset NetworkManager\nwifiUp\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode\nemojis"
+options="neofetch\ncmus\ncmus (float)\n\nweather\nReset NetworkManager\nwifiUp\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode"
 
 chosen=$(echo "$options" | dmenu -i -p "~$ urxvt -e")
 
@@ -17,15 +17,11 @@ case "$chosen" in
 	#programs
 	cmus) urxvt -cd ~/music -e cmus ;;
 	"cmus (float)") urxvt -title floating -sh 20 -geometry "150x12+5-8" -cd ~/music -e cmus ;;
-	newsboat) urxvt -e newsboat ;;
-	neomutt) urxvt -e neomutt ;;
 	# sudo stuff
-	brightFirst) sudo ~/scripts/brightFirst.sh ;;
 	"Restart NetworkManager") sudo systemctl restart NetworkManager ;;
 	wifiUp) wifiUp.sh ;;
 	wifiDown) wifiDown.sh ;;
 	# other
 	musicMode) ~/scripts/musicMode.sh ;;
 	"Close music mode") ~/scripts/closeMusicMode.sh  ;;
-	emojis) ~/scripts/dmenuUnicode.sh ;;
 esac
