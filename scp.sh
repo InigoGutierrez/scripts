@@ -11,4 +11,4 @@ hostpass="$(echo "$host" | cut -d'#' -f4)"
 targetPath="$(echo "$host" | cut -d'#' -f5)"
 echo "Sending to $hostname"
 [ "$hostpass" ] && pass -c "$hostpass"
-[ "$hostport" ] && scp -P $hostport "$@" $hostaddress:$targetPath || scp "$@" $hostaddress:$targetPath # No quotes here!
+[ "$hostport" ] && scp -r -P $hostport "$@" $hostaddress:$targetPath || scp -r "$@" $hostaddress:$targetPath # No quotes here!
