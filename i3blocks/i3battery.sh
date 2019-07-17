@@ -25,7 +25,7 @@ elif [ "$capacity" -ge 10 ]; then
 	color="#fe8019"
 else
 	color="#fb4934"
-	[ "$status" != "Charging" ] && warn="❗" && dunstify -u critical -r "$(dunstifyIDs.sh "batteryLow")" "Battery remaining: $capacity% ($remaining)"
+	#[ "$status" != "Charging" ] && warn="❗" && dunstify -u critical -r "$(dunstifyIDs.sh "batteryLow")" "Battery remaining: $capacity% ($remaining)"
 fi
 
 [ -z "$warn" ] && warn=""
