@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# Receives a filename as argument and copies it to a folder selecting it with fzf
+# Receives filenames as arguments and copies them to a folder selected with fzf
 
-filename="$1"
 target="$(selectPathFzf.sh "Copy to: ")"
-cp "$filename" "$target"
+cp "$@" "$target"
