@@ -1,5 +1,10 @@
 #!/bin/sh
 
-# Obtain an id from ~/.config/dunst/dunstifyIDs by grepping a word. For using with dunstify for replaceable notifications.
+# Obtain an id from ~/.config/dunst/dunstifyIDs by grepping a word.
+# Use with dunstify for autoreplacing notifications by string identifier.
 
-cat $HOME/.config/dunst/dunstifyIDs | grep $1 | awk '{print $2}'
+configFile="$HOME/.config/dunst/dunstifyIDs"
+[ ! -f "$configFile" ] && dunstify "'$configFile' missing!" && exit 1
+id="$(grep "$1" <"$configFile" | awk '{print $2}')"
+[ -z "$id" ] && dunstify "'$1' ID not set in '$configFile'" && exit 1
+echo "$id"
