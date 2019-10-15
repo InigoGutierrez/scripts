@@ -4,7 +4,7 @@
 
 # Depends on nmcli and ip for IPs
 case $BLOCK_BUTTON in
-	1) i3-msg "exec urxvt -e nmtui" >/dev/null ;;
+	1) i3-msg "exec urxvt -title "floating" -e nmtui" >/dev/null ;;
 esac
 
 wifiDev="wlp2s0"
