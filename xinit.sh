@@ -1,11 +1,14 @@
 #!/bin/sh
 
 # To be run by the window manager or desktop environment when starting an X session
-dunst &
 xrdb ~/.Xresources
+compton &
+dunst &
+setRandomBG.sh
 setxkbmap -layout es -option caps:swapescape
 xset -b
 unclutter --idle 1 &
+#feh --bg-max ~/images/wallpapers/bg_*
 touchpad.sh
-feh --bg-max ~/images/wallpapers/bg_*
 urxvt -e tmux new -s main &
+optimus-manager-qt &
