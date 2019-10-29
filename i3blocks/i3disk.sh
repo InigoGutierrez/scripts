@@ -8,4 +8,4 @@ case $BLOCK_BUTTON in
 $home" ;;
 esac
 
-df -h | grep "/home$" | awk '{print $4"/"$2}'
+df -h | grep "/home$" | awk '{print $3"/"$2}'
