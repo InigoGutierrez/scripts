@@ -13,5 +13,6 @@ maim "$imgTemp"
 #[ -e "$imgLock" ] && convert "$imgTemp" -colors 2 -mode 2x5 "#00001f,000000" "$imgFinal"
 #[ -e "$imgLock" ] && convert "$imgTemp" -median 10x5 "#00001f,000000" "$imgFinal"
 #[ -e "$imgLock" ] && convert "$imgTemp" -polaroid 0 +level-colors "#00001f,000000" "$imgFinal"
-[ -e "$imgLock" ] && convert "$imgTemp" -colors 2 -motion-blur 5x5 +level-colors "#00001f,000000" "$imgFinal"
+#[ -e "$imgLock" ] && convert "$imgTemp" -colors 2 -motion-blur 5x5 +level-colors "#00001f,000000" "$imgFinal"
+[ -e "$imgLock" ] && convert "$imgTemp" -median 2x2 -colors 8 "$imgFinal"
 i3lock -i "$imgFinal" -f || i3lock -i "$imgTemp" -f
