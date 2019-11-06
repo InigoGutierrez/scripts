@@ -1,6 +1,9 @@
 #!/bin/sh
 
-# i3blocks mail module.
+# i3mailbox.sh (i3blocks mail module)
+#
+# Usage: i3mailbox.sh
+#
 # Displays number of unread mail and an loading icon if updating.
 # When clicked, brings up `neomutt`.
 
@@ -13,11 +16,21 @@ case $BLOCK_BUTTON in
 - Middle click syncs mail" ;;
 esac
 
+gmailInbox="$CONFIG_FOLDER_GMAIL_INBOX"
+unioviInbox="$CONFIG_FOLDER_UNIOVI_INBOX"
+output=""
 syncIcon=""
 [ -n "$(pgrep mbsync)" ] && syncIcon="🔃"
-gmailN="$(du -a ~/.mail/gmail/INBOX/new/* 2>/dev/null | sed -n '$=')"
-[ "$gmailN" ] || gmailN="0"
-unioviN="$(du -a ~/.mail/uniovi/INBOX/new/* 2>/dev/null | sed -n '$=')"
-[ "$unioviN" ] || unioviN="0"
+output="$output$syncIcon"
+
+if [ -n "$gmailInbox" ]; then
+	gmailN="$(ls "$gmailInbox"/* 2>/dev/null | wc -l)"
+	output="$output Gmail: $gmailN "
+fi
+if [ -n "$unioviInbox" ]; then
+	unioviN="$(ls "$unioviInbox"/* 2>/dev/null | wc -l)"
+	output="$output Uniovi: $unioviN "
+fi
+
 #echo "$(cat /tmp/imapsyncicon) Gmail: $gmailN  uniovi: $unioviN"
-echo "$syncIcon Gmail: $gmailN  uniovi: $unioviN"
+echo "${output% }"
