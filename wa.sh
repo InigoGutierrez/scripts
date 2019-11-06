@@ -2,13 +2,13 @@
 
 # wa.sh
 #
-# Usage: wa.sh
+# Usage: wa.sh [STRING]...
 #
-# Passes input to clipboard surrounded by Whatsapp's
-# monospace macro lines.
+# Passes argument strings or input to clipboard surrounded
+# by Whatsapp's monospace macro lines.
 #
-# wa.sh uses 'cat -' to process input, so standard
-# input is read if no input is provided.
+# wa.sh without arguments uses 'cat -' to process input,
+# so standard input is read if no input is provided.
 
 if ! type xsel >/dev/null; then
 	echo "xsel not found: wa.sh depends on xsel." 1>&2
@@ -16,5 +16,9 @@ if ! type xsel >/dev/null; then
 fi
 
 echo '```' | xsel -bi
-cat - | xsel -ba
-echo -n '```' | xsel -ba
+if [ -n "$*" ]; then
+	 echo "$@" | xsel -ba
+else
+	cat - | xsel -ba
+fi
+echo '```' | xsel -ba
