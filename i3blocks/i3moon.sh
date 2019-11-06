@@ -16,5 +16,6 @@ echo "$moon"
 
 case $BLOCK_BUTTON in
 	1) dunstify -r "$(dunstifyIDs.sh "moon")" "$moon $(pom) $moon";;
+	3) dunstify -r "$(dunstifyIDs.sh "moon")" "moon" "$(curl 'wttr.in/moon?0T')";;
 esac
 

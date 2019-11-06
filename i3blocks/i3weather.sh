@@ -6,11 +6,11 @@
 #
 # Prints a one-line current weather report
 
-#case $BLOCK_BUTTON in
-#	1) # Left click
-#	2) # Middle click
-#	3) # Right click
-#esac
+case $BLOCK_BUTTON in
+	1) dunstify "$(curl wttr.in/?0qT)";;
+	#2) # Middle click
+	#3) # Right click
+esac
 
 output="$(curl 'wttr.in/Oviedo?format=%c+%t+%p+%w' | sed 's/+//g')"
 echo ${output% k*}
