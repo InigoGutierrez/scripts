@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# <++>
+#
+# <++>
+
 #case $BLOCK_BUTTON in
 #	1) # Left click
 #	2) # Middle click
