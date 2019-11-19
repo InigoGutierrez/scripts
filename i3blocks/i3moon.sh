@@ -3,14 +3,14 @@
 # Shows an emoji with the phase of the moon
 
 [ ! -f "/bin/pom" ] && echo "🌜 bsd-games not installed. 🌛" && exit 0
-pom | fgrep -q "New" && moon=🌚
-pom | fgrep -q "Waxing Crescent" && moon=🌒
-pom | fgrep -q "First Quarter" && moon=🌓
-pom | fgrep -q "Waxing Gibbous" && moon=🌔
-pom | fgrep -q "is Full" && moon=🌝
-pom | fgrep -q "Waning Gibbous" && moon=🌖
-pom | fgrep -q "Last Quarter" && moon=🌗
-pom | fgrep -q "Waning Crescent" && moon=🌘
+pom | grep -F -q "New" && moon=🌚
+pom | grep -F -q "Waxing Crescent" && moon=🌒
+pom | grep -F -q "First Quarter" && moon=🌓
+pom | grep -F -q "Waxing Gibbous" && moon=🌔
+pom | grep -F -q "is Full" && moon=🌝
+pom | grep -F -q "Waning Gibbous" && moon=🌖
+pom | grep -F -q "Last Quarter" && moon=🌗
+pom | grep -F -q "Waning Crescent" && moon=🌘
 
 echo "$moon"
 
