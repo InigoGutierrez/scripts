@@ -108,6 +108,16 @@ cp -r "mainpage" "$HOME/.mainpage"
 rm -rf "$HOME/.mainpage/.git"
 )
 
+# Set up nvim (as in nvim-from-vim)
+mkdir -p "$HOME/.config/nvim"
+echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc" >"$HOME/.config/nvim/init.vim"
+
+# vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # Remove default .bash_profile as it avoids .profile execution
 if [ -f ".bash_profile" ]; then
 	echo "Remove .bash_profile? It prevents .profile from being executed. [y/N]"
