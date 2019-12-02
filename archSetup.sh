@@ -9,17 +9,19 @@ packagesFile="$HOME/repos/configs/packages.txt"
 cd
 
 # Pacman config
-sudo sed -i 's/^#Color.*$/Color\nILoveCandy/' /etc/pacman.conf
+echo "Adding color and candy to /etc/pacman.conf"
+grep -q 'ILoveCandy' /etc/pacman.conf ||
+	sudo sed -i 's/^#Color.*$/Color\nILoveCandy/' /etc/pacman.conf
 
 # Install git to get needed repos
-echo "Installing git"
-sudo pacman -S git
-echo ""
-
-echo "Setting up git config."
-git config --global user.name "InigoGutierrez"
-git config --global user.email "inigogf.95@gmail.com"
-echo ""
+if ! type git; then
+	echo "Installing git"
+	type git || sudo pacman -S git
+	echo "Setting up git config."
+	git config --global user.name "InigoGutierrez"
+	git config --global user.email "inigogf.95@gmail.com"
+	echo ""
+fi
 
 mkdir "repos"
 
@@ -31,56 +33,70 @@ if [ ! -d "scripts" ]; then
 fi
 if [ ! -d "repos/configs" ]; then
 	echo "Cloning configs repo"
+	(
 	cd repos
 	git clone https://github.com/InigoGutierrez/configs
-	cd $HOME
 	echo ""
+	)
 fi
-cd
 
 # Read programs to install from file
 sed -n '/^# pacman/,/^# yay/p' "$packagesFile" | sed '/^#/d' | sudo pacman -S -
 
 # Clone specific programs sources to be compiled and installed later
+(
 cd "$HOME/repos"
 [ ! -d "dmenu" ] && git clone "https://git.suckless.org/dmenu"
 [ ! -d "sxiv" ] && git clone "https://github.com/muennich/sxiv"
 [ ! -d "yay" ] && git clone "https://aur.archlinux.org/yay.git"
-cd
+)
 
 # Put config files in place
 echo "Putting config files in place"
+(
 cd "$HOME/repos/configs"
 sh setup.sh
 echo ""
-cd
+)
 
 # Compile specific programs
 
 echo "Installing some program repos."
+(
 cd "$HOME/repos"
-if type dmenu; then
+if ! type dmenu; then
+	(
 	cd dmenu
 	make
 	sudo make install
 	make clean
-	cd ..
+	)
 fi
 
-if type sxiv; then
+if ! type sxiv; then
+	(
 	cd sxiv
 	make
 	sudo make install
 	make clean
-	cd ..
+	)
 fi
 
-if type yay; then
+if ! type yay; then
+	(
 	cd yay
 	makepkg -si
-	cd
-	echo ""
+	)
 fi
+echo ""
+)
 
 # Install programs with yay
 sed -n '/^# yay/,$p' "$packagesFile" | sed '/^#/d' | yay -S -
+
+# Remove default .bash_profile as it avoids .profile execution
+if [ -f ".bash_profile" ]; then
+	echo "Remove .bash_profile? It prevents .profile from being executed. [y/N]"
+	read answer
+	echo "$answer" | grep -E -q '^[yY]' && rm .bash_profile
+fi
