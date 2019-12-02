@@ -8,6 +8,9 @@ packagesFile="$HOME/repos/configs/packages.txt"
 # Setup is done from the $HOME directory
 cd
 
+# Pacman config
+sudo sed -i 's/^#Color.*$/Color\nILoveCandy/' /etc/pacman.conf
+
 # Install git to get needed repos
 echo "Installing git"
 sudo pacman -S git
@@ -36,13 +39,13 @@ fi
 cd
 
 # Read programs to install from file
-sed -n '/^# pacman/,/^# yay/p' "$packagesFile" | sed '/^#/d' | pacman -S -
+sed -n '/^# pacman/,/^# yay/p' "$packagesFile" | sed '/^#/d' | sudo pacman -S -
 
 # Clone specific programs sources to be compiled and installed later
 cd "$HOME/repos"
-git clone "https://git.suckless.org/dmenu"
-git clone "https://github.com/muennich/sxiv"
-git clone "https://aur.archlinux.org/yay.git"
+[ ! -d "dmenu" ] && git clone "https://git.suckless.org/dmenu"
+[ ! -d "sxiv" ] && git clone "https://github.com/muennich/sxiv"
+[ ! -d "yay" ] && git clone "https://aur.archlinux.org/yay.git"
 cd
 
 # Put config files in place
@@ -56,22 +59,28 @@ cd
 
 echo "Installing some program repos."
 cd "$HOME/repos"
-cd dmenu
-make
-sudo make install
-make clean
-cd ..
+if type dmenu; then
+	cd dmenu
+	make
+	sudo make install
+	make clean
+	cd ..
+fi
 
-cd sxiv
-make
-sudo make install
-make clean
-cd ..
+if type sxiv; then
+	cd sxiv
+	make
+	sudo make install
+	make clean
+	cd ..
+fi
 
-cd yay
-makepkg -si
-cd
-echo ""
+if type yay; then
+	cd yay
+	makepkg -si
+	cd
+	echo ""
+fi
 
 # Install programs with yay
 sed -n '/^# yay/,$p' "$packagesFile" | sed '/^#/d' | yay -S -
