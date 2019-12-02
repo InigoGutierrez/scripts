@@ -94,6 +94,20 @@ echo ""
 # Install programs with yay
 sed -n '/^# yay/,$p' "$packagesFile" | sed '/^#/d' | yay -S -
 
+# Directory structure
+mkdir -p "$HOME/downloads/videos"
+mkdir -p "$HOME/downloads/audios"
+mkdir -p "$HOME/images/screenshots"
+mkdir -p "$HOME/images/wallpapers/shufs/current"
+
+# Mainpage
+(
+cd "$HOME/repos"
+git clone "https://github.com/InigoGutierrez/mainpage.git"
+cp -r "mainpage" "$HOME/.mainpage"
+rm -rf "$HOME/.mainpage/.git"
+)
+
 # Remove default .bash_profile as it avoids .profile execution
 if [ -f ".bash_profile" ]; then
 	echo "Remove .bash_profile? It prevents .profile from being executed. [y/N]"
