@@ -1,0 +1,4 @@
+#!/bin/sh
+tmux new-window "cd $HOME/proyects/cards/web; nvim"
+tmux previous-window
+ranger "$HOME/proyects/cards/"

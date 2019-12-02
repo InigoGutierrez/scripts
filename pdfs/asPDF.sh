@@ -1,9 +1,9 @@
 #!/bin/sh
 
 outdir="/tmp/pdf"
-opener="zathura"
 name="${1%.*}"
 ext="${1##*.}"
+[ -d "$outdir" ] || mkdir -p "$outdir"
 
 case "$ext" in
 	"md")
@@ -11,4 +11,4 @@ case "$ext" in
 	*)
 		lowriter --convert-to pdf --outdir "$outdir" "$1" 1>/dev/null 2>&1 ;;
 esac
-"$opener" "$outdir/$name.pdf"
+"$READER" "$outdir/$name.pdf"
