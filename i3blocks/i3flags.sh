@@ -15,7 +15,7 @@
 #esac
 
 if [ -z "$1" ]; then
-	programs="picom dunst"
+	programs="cmus picom dunst"
 else
 	programs="$*"
 fi
@@ -26,7 +26,8 @@ for program in $programs; do
 		flag="$(echo "${program:0:1}" | awk '{print toupper($1)}')"
 		flags="${flags}${flag}"
 	else
-		flags="${flags}-"
+		flag="$(echo "${program:0:1}" | awk '{print tolower($1)}')"
+		flags="${flags}${flag}"
 	fi
 done
 
