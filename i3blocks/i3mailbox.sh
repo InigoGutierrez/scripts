@@ -16,21 +16,27 @@ case $BLOCK_BUTTON in
 - Middle click syncs mail" ;;
 esac
 
+label=📫
 gmailInbox="$CONFIG_FOLDER_GMAIL_INBOX"
 unioviInbox="$CONFIG_FOLDER_UNIOVI_INBOX"
-output=""
+output="$label"
+shortOutput="$label"
 syncIcon=""
 [ -n "$(pgrep mbsync)" ] && syncIcon="🔃"
 output="$output$syncIcon"
+shortOutput="$shortOutput$syncIcon"
 
 if [ -n "$gmailInbox" ]; then
 	gmailN="$(ls "$gmailInbox"/* 2>/dev/null | wc -l)"
 	output="$output Gmail: $gmailN "
+	shortOutput="$shortOutput G: $gmailN "
 fi
 if [ -n "$unioviInbox" ]; then
 	unioviN="$(ls "$unioviInbox"/* 2>/dev/null | wc -l)"
 	output="$output Uniovi: $unioviN "
+	shortOutput="$shortOutput U: $unioviN "
 fi
 
 #echo "$(cat /tmp/imapsyncicon) Gmail: $gmailN  uniovi: $unioviN"
 echo "${output% }"
+echo "${shortOutput% }"
