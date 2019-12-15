@@ -5,7 +5,7 @@
 #imgLock="$HOME/images/icons/lock.png"
 imgTemp="/tmp/i3lockss.png"
 imgFinal="/tmp/lockFinal$(date +"%H%M%S").png"
-maim "$imgTemp"
+maim -u "$imgTemp"
 #[ -e "$imgLock" ] && convert "$imgTemp" -paint 1 -swirl -30 "$imgLock" -gravity center -composite "$imgFinal"
 #[ -e "$imgLock" ] && convert "$imgTemp" "$imgLock" -gravity center -composite -monochrome "$imgFinal"
 #convert "$imgTemp" -canny 1x1 +level-colors "#093145","#e0ea99" "$imgFinal"
