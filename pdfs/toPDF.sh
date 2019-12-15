@@ -8,6 +8,7 @@
 # it already exists.
 # Opens the file with $READER if -o option is given.
 
+open=""
 if [ "$1" = "-o" ]; then
 	open="1"
 	shift
