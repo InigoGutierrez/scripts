@@ -12,6 +12,7 @@ case $BLOCK_BUTTON in
 esac
 
 battery="$CONFIG_BATTERY"
+[ -n "$battery" ] || exit 0
 status=$(cat /sys/class/power_supply/"$battery"/status)
 capacity=$(cat /sys/class/power_supply/"$battery"/capacity) || exit 0
 [ -f "/bin/acpi" ] && remaining="$(acpi | cut -d' ' -f5 | cut -d':' -f-2)" || remaining="missing acpi"
