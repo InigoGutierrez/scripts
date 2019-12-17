@@ -5,7 +5,9 @@ case $BLOCK_BUTTON in
 $(ps axch -o cmd:18,%cpu --sort=-%cpu | sed 10q)" ;;
 esac
 
-temp=$(sensors | awk '/Package id/ {print $4}' | sed 's/+//' | sed 's/\..*//')
+temp="$(sensors |
+awk '/'"$CONFIG_SENSORS_TEMP_REGEX"'/ {print $'"$CONFIG_SENSORS_TEMP_COL"'}' |
+sed 's/+//; s/\..*//')"
 warn=""
 
 if [ "$temp" -lt 25 ]; then
