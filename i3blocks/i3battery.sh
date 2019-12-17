@@ -11,8 +11,9 @@ case $BLOCK_BUTTON in
 - Text color reflects charge left" ;;
 esac
 
-status=$(cat /sys/class/power_supply/"$1"/status)
-capacity=$(cat /sys/class/power_supply/"$1"/capacity) || exit 0
+battery="$CONFIG_BATTERY"
+status=$(cat /sys/class/power_supply/"$battery"/status)
+capacity=$(cat /sys/class/power_supply/"$battery"/capacity) || exit 0
 [ -f "/bin/acpi" ] && remaining="$(acpi | cut -d' ' -f5 | cut -d':' -f-2)" || remaining="missing acpi"
 
 if [ "$capacity" -ge 80 ]; then
