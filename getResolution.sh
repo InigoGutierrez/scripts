@@ -1,3 +1,3 @@
 #!/bin/sh
 
-xrandr | grep '*' | awk '{print $1}'
+xrandr | grep '\*' | awk '{print $1}'
