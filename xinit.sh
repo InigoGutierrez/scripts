@@ -4,11 +4,10 @@
 xrdb ~/.Xresources
 picom &
 dunst &
-setRandomBG.sh
+#setRandomBG.sh
 setxkbmap -layout es -option caps:swapescape
 xset -b
 unclutter --idle 1 &
-#feh --bg-max ~/images/wallpapers/bg_*
-#touchpad.sh
+feh --bg-max ~/images/wallpapers/bg_*
+touchpad.sh
 urxvt -e tmux new -s main &
-optimus-manager-qt &
