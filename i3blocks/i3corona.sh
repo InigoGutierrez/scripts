@@ -18,5 +18,5 @@ tmpFile="${tmpDir}/coronaData.txt"
 	curl https://corona-stats.online/spain > "$tmpFile" 2>/dev/null
 
 grep 'Spain' "$tmpFile" | sed 's/\s*//g; s/\x1b\[[0-9;]*m//g; s/[,▲║]//g' |
-	awk -F'│' '{print "😷 " $3 " (+" $6 ") 💪 " $7}'
+	awk -F'│' '{print "😷 " $3 " (+" $4 ") 💪 " $7}'
 
