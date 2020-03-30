@@ -7,8 +7,10 @@ url="$1"
 echo "$url" | grep -i "youtube" >/dev/null &&
 	url="$(youtube-dl --get-thumbnail "$url")"
 
-filename="/tmp/showURLimage$(date +%H%M%S)"
+folder="/tmp/showURLimage"
+filename="${folder}/$(date +%H%M%S)"
 
+[ -d "$folder" ] || mkdir -p "$folder"
 curl "$url" > "$filename"
 sxiv -b -N "sxivfloat" "$filename" || notify-send "No image found at $url"
 
