@@ -22,5 +22,6 @@ targetFile="${targetDir}/${sourceFile##*/}"
 targetFile="${targetFile%.*}.pdf"
 
 [ -d "$targetDir" ] || mkdir -p "$targetDir"
-pandoc "$sourceFile" -o "$targetFile"
+pandoc "$sourceFile" -o "$targetFile" > ~/logs/toPDF.log
 [ -n "$open" ] && "$READER" "$targetFile" &
+
