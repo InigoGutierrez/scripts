@@ -8,7 +8,7 @@ esac
 
 symbol=🎵
 ampersand='and' # & in echo messes up script
-pgrep -x cmus >/dev/null || exit 0
+pgrep -x cmus >/dev/null || (echo "" && exit 0)
 stat="$(cmus-remote -Q | grep "^status " | awk '{print $2}' | sed "s/&/$ampersand/")"
 artist="$(cmus-remote -Q | grep "^tag artist " | cut -d' ' -f3- | sed "s/&/$ampersand/")"
 title="$(cmus-remote -Q | grep "^tag title " | cut -d' ' -f3- | sed "s/&/$ampersand/")"
