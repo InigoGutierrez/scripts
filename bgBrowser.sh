@@ -11,7 +11,6 @@
 #    |_.__/|_|  \___/ \_/\_/ |___/\___|_|
 #
 
-#folder="/home/inigo/images/wallpapers/"
 folder="$1"
 indexSet=0
 
