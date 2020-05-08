@@ -20,8 +20,18 @@ targetDir="/tmp/toPDF"
 sourceFile="$1"
 targetFile="${targetDir}/${sourceFile##*/}"
 targetFile="${targetFile%.*}.pdf"
+extension="${sourceFile##*.}"
+texengine="xelatex"
 
 [ -d "$targetDir" ] || mkdir -p "$targetDir"
-pandoc "$sourceFile" -o "$targetFile" > ~/logs/toPDF.log
-[ -n "$open" ] && "$READER" "$targetFile" &
 
+case "$extension" in
+	"tex")
+		"$texengine" -output-directory "$targetDir" "$sourceFile"
+		;;
+	*)
+		pandoc "$sourceFile" -o "$targetFile" > ~/logs/toPDF.log
+		;;
+esac
+
+[ -n "$open" ] && "$READER" "$targetFile" &
