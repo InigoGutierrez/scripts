@@ -1,17 +1,14 @@
 # dndCard.sh
 
-Takes some fields from an input file and builds a pdf or image of a card from them. A background
-image can be provided; if not, the background will have a plain color. The template is fully
-editable or others could be created, just bare in mind that the words between `@`, such as `@name@`
-or `@icon@`, are what the script searches for to insert the text and image file names. Don't leave
-commented lines since they are uncommented when no background image is found. Related to this, the
-lines containing `%bg%` are deleted when no background image is found.
+Takes some fields from an input file and builds a pdf and image of a card from them.
 
-Usage:
+## Usage
 
 ```
 dndCard.sh [-t templateFile] [-b bodyFile] inputFile
 ```
+
+## Example
 
 Example of input file:
 
@@ -32,3 +29,11 @@ Example of output, with no image background and using
 [game-icons.net](https://game-icons.net/):
 
 ![Potion card example](Health_potion.png)
+
+## Additional notes
+
+A background image can be provided; if not, the background will have a plain color. The template is
+fully editable or others could be created, just bare in mind that the words between `@`, such as
+`@name@` or `@icon@`, are what the script searches for to insert the text and image file names.
+Don't leave commented lines since they are uncommented when no background image is found. Related to
+this, the lines containing `%bg%` are deleted when no background image is found.
