@@ -13,7 +13,7 @@ Usage:
 dndCard.sh [-t templateFile] [-b bodyFile] inputFile
 ```
 
-Example of body file:
+Example of input file:
 
 ```
 name#Health potion
@@ -24,8 +24,11 @@ flavor#The potion's red liquid glimmers when agitated.
 icon#potion-ball.png
 ```
 
+Note that the body field could be on another file provided with the `-b` option, but it still should
+be just one line.
+
 Example of output, with no image background and using
-[an icon](https://game-icons.net/1x1/lorc/potion-ball.html)
-from the amazing source [game-icons.net](https://game-icons.net/):
+[an icon](https://game-icons.net/1x1/lorc/potion-ball.html) downloaded as-is from the amazing source
+[game-icons.net](https://game-icons.net/):
 
 ![Potion card example](Health_potion.png)
