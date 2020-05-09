@@ -1,0 +1,76 @@
+\documentclass[17pt,a4paper,extrafontsizes]{memoir}
+
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+\setlength{\columnsep}{-4mm}
+
+\setstocksize{176mm}{126mm}
+\setpagecc{176mm}{126mm}{*}
+\settypeblocksize{156mm}{94mm}{*}
+\setulmargins{10mm}{*}{*}
+\setlrmargins{14mm}{*}{*}
+\usepackage{xcolor}
+
+\setheadfoot{0.2pt}{0.2pt}
+\setheaderspaces{2pt}{*}{*}
+
+\checkandfixthelayout[fixed]
+
+\pagestyle{empty}
+
+\usepackage{eso-pic,graphicx}
+\usepackage{auto-pst-pdf}
+
+\usepackage{aurical}
+\usepackage{chancery}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+%\definecolor{vellumParchment}{RGB}{235, 213, 179}
+
+\begin{document}
+
+%\pagecolor{vellumParchment}
+
+\Fontauri{}
+
+\noindent
+{\Large @name@}
+
+\rmfamily
+
+\begin{multicols}{2}
+	\noindent
+	{\includegraphics[height=40mm]{@icon@}}
+	\\
+
+	\vfill
+
+	\noindent
+	@type@\\
+	{\footnotesize{}@hint@}\\
+\end{multicols}
+
+\vspace{-14mm}
+
+\begin{adjustwidth}{-4mm}{0mm}
+	\begin{center}
+		\rule{1.1\textwidth}{.6mm}
+	\end{center}
+\end{adjustwidth}
+
+\begin{Spacing}{0.90}
+	\small
+	@body@
+	\vfill
+	\begin{center}
+		\rule{.6\textwidth}{.4mm}\\
+		\vspace{2mm}
+		@flavor@
+	\end{center}
+\end{Spacing}
+
+\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{@bgimg@}} %bg%
+\clearpage %bg%
+
+\end{document}

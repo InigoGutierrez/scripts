@@ -1,0 +1,6 @@
+name#Health potion
+typetext#Consumable
+hint#(Restores 2d4+1 HP)
+body#Can be uncorked and drank as an action. The potion restores 2d4+1 HP. It can also be given to other characters in a moment of need. Many other useful properties of the potion could be listed here.
+flavor#The potion's red liquid glimmers when agitated.
+icon#potion-ball.png
