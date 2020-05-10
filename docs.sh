@@ -13,7 +13,7 @@
 referencesFile="$HOME/.config/zathura/refs"
 lines="$(wc -l "$referencesFile")"
 if reference="$(cut -d# -f1 <"$referencesFile" |
-	dmenu -i -l "$lines" -p "Reference: ")"; then
+	dmenu -c -bw 3 -i -l "$lines" -p "Reference: ")"; then
 	line="$(grep "$reference" "$referencesFile" | sed q)"
 	file="$(echo "$line" | cut -d# -f2)"
 	page="$(echo "$line" | cut -d# -f3)"
