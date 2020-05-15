@@ -22,6 +22,8 @@ targetFile="${targetDir}/${sourceFile##*/}"
 targetFile="${targetFile%.*}.pdf"
 extension="${sourceFile##*.}"
 texengine="xelatex"
+pandocLuaScriptsFolder="$XDG_CONFIG_HOME/pandoc/luascripts"
+pandocPlantUmlLuaScript="diagram-generator.lua"
 
 [ -d "$targetDir" ] || mkdir -p "$targetDir"
 
@@ -30,7 +32,11 @@ case "$extension" in
 		"$texengine" -output-directory "$targetDir" "$sourceFile"
 		;;
 	*)
-		pandoc "$sourceFile" -o "$targetFile" > ~/logs/toPDF.log
+		plantUmlCode=""
+		plantUmlScriptPath="${pandocLuaScriptsFolder}/${pandocPlantUmlLuaScript}"
+		[ -f "$plantUmlScriptPath" ] && [ -n "$PLANTUML" ] &&
+			plantUmlCode="--lua-filter $plantUmlScriptPath"
+		pandoc --pdf-engine=xelatex "$sourceFile" $plantUmlCode -o "$targetFile" > ~/logs/toPDF.log
 		;;
 esac
 
