@@ -35,7 +35,8 @@ case "$extension" in
 		plantUmlCode=""
 		plantUmlScriptPath="${pandocLuaScriptsFolder}/${pandocPlantUmlLuaScript}"
 		[ -f "$plantUmlScriptPath" ] && [ -n "$PLANTUML" ] &&
-			plantUmlCode="--lua-filter $plantUmlScriptPath"
+			grep '```{\.plantuml' "$sourceFile" >/dev/null
+				plantUmlCode="--lua-filter $plantUmlScriptPath"
 		pandoc --pdf-engine=xelatex "$sourceFile" $plantUmlCode -o "$targetFile" > ~/logs/toPDF.log
 		;;
 esac
