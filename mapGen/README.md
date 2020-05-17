@@ -86,4 +86,4 @@ image names for easier memorization. Either way, the "configuration" of the rela
 trivial and freely customizable.
 
 For the examples I used tiles of 8x8 pixels, but other styles could be attained by using bigger
-ones.
+ones. Note that there is no logic for relative location of tiles.
