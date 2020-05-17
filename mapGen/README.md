@@ -69,6 +69,10 @@ XXXXXXXXXooXXXXXXXXX
 XXXXXXXXXooXXXXXXXXX
 ```
 
+Note that for the second image a different folder with some missing tiles where used (no tiles
+starting by D or S). The script puts a red pixel there and the cyan background is seen, indicating
+this absence.
+
 ## Usage
 
 ```
