@@ -6,3 +6,4 @@ $(ps axch -o cmd:18,%mem --sort=-%mem | sed 10q)" ;;
 esac
 
 free -h | awk '/^Mem/ {print $3 "/" $2}'
+free -h | awk '/^Mem/ {print $3}'
