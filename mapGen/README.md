@@ -15,7 +15,7 @@ xxxxx
 ## Dependencies
 
 - A POSIX-compliant shell (`bash`, `dash`, `sh`, `zsh`)
-- ImageMagick
+- [ImageMagick](https://imagemagick.org/index.php)
 - Tools expected in a Unix environment: `grep`, `sed`, `awk`
 
 ## Motivation
@@ -26,10 +26,11 @@ The want for Vim to be a map maker.
 
 Given a text file in which each character represents a cell, have a script draw that map.
 
-`mapGen.sh` takes as input a text file with a block of text which ideally has a block of characters
-with no missing ones. It also takes a folder in which tile images are supposed to be. For each
-character in the file, it randomly takes one image in that folder which name starts with that
-characters and creates an image from the text file.
+`mapGen.sh` takes as input a text file which ideally has a block of characters of any size but of
+rectangular shape with no missing ones. It also takes a folder in which tile images are supposed to
+be. For each character in the file it randomly takes one image in that folder which name starts
+with that character and composes it into the map image with the help of the `convert` command from
+ImageMagick.
 
 ## Examples
 
@@ -71,12 +72,15 @@ XXXXXXXXXooXXXXXXXXX
 ## Usage
 
 ```
-mapGen.sh [-s SIZE] [-f TILE_FOLDER] SOURCE_FILE
+mapGen.sh [-s SIZE] [-f TILE_FOLDER] [-o OUTPUT_FILE] SOURCE_FILE
 ```
 
-Where `SIZE` is the size of the tile images in pixels (default 8), `TILE_FOLDER` is the folder
-where the tile images are stored (default `./tiles`) and `SOURCE_FILE` is the text file with the
-layout of the map.
+Where
+
+- `SIZE` is the size of the tile images in pixels (default 8),
+- `TILE_FOLDER` is the folder where the tile images are stored (default `./tiles`),
+- `OUTPUT_FILE` is the path to the resulting image (default `out.jpg`),
+- and `SOURCE_FILE` is the text file with the layout of the map.
 
 ## Possibilities
 
