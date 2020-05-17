@@ -77,7 +77,7 @@ mapGen.sh [-s SIZE] [-f TILE_FOLDER] [-o OUTPUT_FILE] SOURCE_FILE
 
 Where
 
-- `SIZE` is the size of the tile images in pixels (default 8),
+- `SIZE` is the side of the tile images in pixels (default 8),
 - `TILE_FOLDER` is the folder where the tile images are stored (default `./tiles`),
 - `OUTPUT_FILE` is the path to the resulting image (default `out.jpg`),
 - and `SOURCE_FILE` is the text file with the layout of the map.
