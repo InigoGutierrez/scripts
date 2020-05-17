@@ -1,6 +1,6 @@
 # mapGen.sh
 
-A shellscript to make grid maps from text files
+A shellscript to make grid maps from text files.
 
 ![Simple map example](examples/simpleBig.jpg)
 
@@ -14,7 +14,7 @@ xxxxx
 
 ## Dependencies
 
-- A POSIX-compliant shell (`bash`, `dash`, `sh`)
+- A POSIX-compliant shell (`bash`, `dash`, `sh`, `zsh`)
 - ImageMagick
 - Tools expected in a Unix environment: `grep`, `sed`, `awk`
 
