@@ -4,12 +4,45 @@
 #
 # Generate a map with ImageMagick from an input text file
 #
-# Usage: mapGen.sh [-s SIZE] [-f TILE_FOLDER] [-o OUTPUT_FILE] SOURCE_FILE
+# Usage: mapGen.sh [-s SIZE] [-f TILE_FOLDER] [-o OUTPUT_FILE] [SOURCE_FILE]
 
-usageMsg="Usage: mapGen.sh [-s SIZE] [-f TILE_FOLDER] [-o OUTPUT_FILE] SOURCE_FILE"
+usageMsg="Usage: mapGen.sh [-s SIZE] [-f TILE_FOLDER] [-o OUTPUT_FILE] [SOURCE_FILE]"
 cellSize=8
 tilesDir="./tiles"
 outputFile="out.jpg"
+
+drawMap () {
+	mapText=""
+	while read line; do
+		mapText="${mapText}${line}\n"
+	done
+	mapText="$(echo "$mapText" | sed 's|\\n|\n|g')"
+
+	height="$(echo "$mapText" | wc -l)"
+	#width="$(awk '{print length($0)}' "$inputFile" | sort -nr | sed 1q)"
+	width="$(echo "$mapText" | awk '{print length($0)}' | sort -nr | sed 1q)"
+	height=$((height*cellSize))
+	width=$((width*cellSize))
+
+	[ ! -f "$outputFile" ] && convert -size "$width"x"$height" xc:cyan "$outputFile"
+
+	row=0
+	col=0
+	echo "$mapText" | (
+	while read line; do
+		echo "$line" | (
+		while read -n1 char; do
+			tileFile="$(find $tilesDir -type f -maxdepth 1 | sed 's|.*/||' | grep "^$char" | shuf | sed 1q)"
+			if [ -n "$tileFile" ]; then
+				tileFile="${tilesDir}/${tileFile}"
+				convert "$outputFile" "$tileFile" -geometry +"$col"+"$row" -composite "$outputFile"
+			fi
+			col=$((col+cellSize))
+		done)
+		row=$((row+cellSize))
+		col=0
+	done)
+}
 
 while echo "$1" | grep '^-' >/dev/null; do
 	case "$1" in
@@ -30,36 +63,8 @@ while echo "$1" | grep '^-' >/dev/null; do
 	esac
 done
 
-[ -z "$1" ] && echo "$usageMsg" >&2 && exit 1
-
-inputFile="$1"
-
-[ ! -f "$inputFile" ] && echo "File not found: $inputFile" >&2 && exit 1
 [ ! -d "$tilesDir" ] && echo "Directory not found: $tilesDir" >&2 && exit 1
-
-height="$(wc -l <"$inputFile")"
-width="$(awk '{print length($0)}' "$inputFile" | sort -nr | sed 1q)"
-
-height=$((height*cellSize))
-width=$((width*cellSize))
-
-echo $width $height
-
-convert -size "$width"x"$height" xc:cyan "$outputFile"
-
-row=0
-col=0
-
-while read line; do
-	echo "$line" | (
-	while read -n1 char; do
-		tileFile="$(find $tilesDir | sed 's|.*/||' | grep "^$char" | shuf | sed 1q)"
-		tileFile="${tilesDir}/${tileFile}"
-		echo "$tileFile" | wc -l | grep 1 >/dev/null || continue
-		convert "$outputFile" "$tileFile" -geometry +"$col"+"$row" -composite "$outputFile" ||
-			convert "$outputFile" -fill red -draw "point $col,$row" "$outputFile"
-		col=$((col+cellSize))
-	done)
-	row=$((row+cellSize))
-	col=0
-done <"$inputFile"
+inputFile="$1"
+[ -z "$inputFile" ] && drawMap && exit
+[ ! -f "$inputFile" ] && echo "File not found: $inputFile" >&2 && exit 1
+drawMap <"$inputFile"
