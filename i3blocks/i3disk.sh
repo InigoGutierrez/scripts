@@ -9,3 +9,4 @@ $home" ;;
 esac
 
 df -h | grep "/home$" | awk '{print $3"/"$2}'
+df -h | grep "/home$" | awk '{print $3}'

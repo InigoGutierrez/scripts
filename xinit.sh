@@ -9,5 +9,5 @@ setxkbmap -layout es -option caps:swapescape
 xset -b
 pgrep -x unclutter || unclutter --idle 1 &
 #touchpad.sh
-urxvt -e tmux new -s main &
+initialLayout.sh
 pgrep -x sxhkd || sxhkd >~/logs/sxhkd.log &

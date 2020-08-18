@@ -1,7 +1,7 @@
 #!/bin/sh
 # dmenu script for opening console programs and scripts directly
 
-options="neofetch\ncmus\ncmus (float)\n\nweather\nReset NetworkManager\nwifiUp\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode"
+options="neofetch\ncmus\ncmus (float)\nweather\nReset NetworkManager\nwifiUp\nwifiDown\nyears\nmonths\nbg selection\nshowColors\npython\nmusicMode\nClose music mode"
 
 chosen=$(echo -e "$options" | dmenu -i -p "~$ urxvt -e")
 
@@ -13,7 +13,7 @@ case "$chosen" in
 	"months") ~/scripts/floats/floatMonths.sh ;;
 	"weather") urxvt -title floating -sh 10 -geometry 125x40 -e weather.sh ;;
 	"bg selection") ~/scripts/floats/floatBgBrowser.sh "$HOME/images/wallpapers/" ;;
-	"python") urxvt -title floating -geometry 80x28 -e python ;;
+	"python") urxvt -title floating -geometry 80x28 -e python -q ;;
 	#programs
 	"cmus") urxvt -cd ~/music -e cmus ;;
 	"cmus (float)") urxvt -title floating -sh 20 -geometry "150x12+5-8" -cd ~/music -e cmus ;;

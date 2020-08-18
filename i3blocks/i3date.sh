@@ -9,4 +9,18 @@ esac
 #dayofyear=$(date +%j)
 #perc=$(echo "scale=1; ($dayofyear*100)/365" | bc)
 #echo $(date +"%A, %y/%m/%d ($perc%) - %T")
-echo $(date +"%y/%m/%d %H:%M")
+
+day="$(date +"%y/%m/%d")"
+hour="$(date +"%H:%M")"
+
+min=${hour#*:}
+baseHour=${hour/:*}
+[ $baseHour -gt 11 ] && baseHour=$((baseHour-12))
+
+clocks=(🕛 🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕧 🕜 🕝 🕞 🕟 🕠 🕡 🕢 🕣 🕤 🕥 🕦)
+clockIndex=$baseHour
+[ $min -gt 29 ] && clockIndex=$((clockIndex+12))
+clock="${clocks[clockIndex]}"
+
+echo $clock $day $hour
+echo $clock $hour
