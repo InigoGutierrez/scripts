@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Sets on nvidia at startup
-cp "$HOME/.xinitrci3bcknvidia" "$HOME/.xinitrci3"
+# Sets nvidia on at startup
+cat "$HOME/.xinitrcprevnvidia" >"$HOME/.xinitrcprev"
+cat "$HOME/.xinitrcpostnvidia" >"$HOME/.xinitrcpost"
 sudo optimus-manager --set-startup hybrid
-

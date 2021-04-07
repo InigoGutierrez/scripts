@@ -1,5 +1,6 @@
 #!/bin/sh
 #
 # Sets off nvidia at startup
-cp "$HOME/.xinitrci3bckintel" "$HOME/.xinitrci3"
+cat "$HOME/.xinitrcprevintel" >"$HOME/.xinitrcprev"
+cat "$HOME/.xinitrcpostintel" >"$HOME/.xinitrcpost"
 sudo optimus-manager --set-startup intel
