@@ -8,6 +8,9 @@ packagesFile="$HOME/repos/configs/packages.txt"
 # Setup is done from the $HOME directory
 cd
 
+# Stop the satanic bell
+sudo echo 'blacklist pcspkr' >/etc/modprobe.d/nobeep.conf
+
 # Pacman config
 echo "Adding color and candy to /etc/pacman.conf"
 grep -q 'ILoveCandy' /etc/pacman.conf ||
