@@ -23,4 +23,4 @@ else
 fi
 
 dunstify -r "$(dunstifyIDs.sh "brightness")" -t 500 "$(~/scripts/i3blocks/i3brightness.sh)"
-pkill -SIGRTMIN+11 i3blocks
+[ -n "$STATUS_BAR" ] && pkill -SIGRTMIN+11 "$STATUS_BAR"

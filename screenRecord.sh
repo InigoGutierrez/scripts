@@ -23,4 +23,4 @@ fi
 # ffmpeg -video_size "$(getResolution.sh)" -framerate 30 -f x11grab -i :0.0+0,0 -f alsa -ac 2 -i hw:0,0 "$HOME/videos/recs/$filename" &
  ffmpeg -video_size "$screenRes" -framerate 25 -f x11grab -i "$screenPos" -f pulse -ac 2 -i default -vcodec libx264 "${recsFolder}/${filename}" &
  notify-send -t 1000 "Recording $filename"
- pkill -SIGRTMIN+13 i3blocks
+ [ -n "$STATUS_BAR" ] && pkill -SIGRTMIN+13 "$STATUS_BAR"

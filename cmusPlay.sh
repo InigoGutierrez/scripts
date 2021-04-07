@@ -8,5 +8,4 @@ else
 	cmus-remote -u
 fi
 
-pkill -SIGRTMIN+12 i3blocks
-
+[ -n "$STATUS_BAR" ] && pkill -SIGRTMIN+12 "$STATUS_BAR"

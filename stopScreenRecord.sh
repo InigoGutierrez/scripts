@@ -12,4 +12,4 @@ do
 	kill "$process" && notify-send -t 1000 "Recording $process stopped."
 done
 rm $markfile
-pkill -SIGRTMIN+13 i3blocks
+[ -n "$STATUS_BAR" ] && pkill -SIGRTMIN+13 "$STATUS_BAR"

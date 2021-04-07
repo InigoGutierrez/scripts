@@ -8,4 +8,4 @@ for file in "$@"
 do
 	mv "$file" "$folder"
 done
-pkill -SIGRTMIN+14 i3blocks
+[ -n "$STATUS_BAR" ] && pkill -SIGRTMIN+14 "$STATUS_BAR"

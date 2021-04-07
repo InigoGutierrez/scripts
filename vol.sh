@@ -7,4 +7,4 @@ else
 fi
 
 dunstify -r "$(dunstifyIDs.sh "vol")" -t 500 "$(~/scripts/i3blocks/i3vol.sh)"
-pkill -SIGRTMIN+10 i3blocks
+[ -n "$STATUS_BAR" ] && pkill -SIGRTMIN+10 "$STATUS_BAR"
