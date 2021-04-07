@@ -17,6 +17,7 @@ case $BLOCK_BUTTON in
 esac
 
 label=📫
+disrootInbox="$CONFIG_FOLDER_DISROOT_INBOX"
 gmailInbox="$CONFIG_FOLDER_GMAIL_INBOX"
 unioviInbox="$CONFIG_FOLDER_UNIOVI_INBOX"
 output="$label"
@@ -26,6 +27,11 @@ syncIcon=""
 output="$output$syncIcon"
 shortOutput="$shortOutput$syncIcon"
 
+if [ -n "$disrootInbox" ]; then
+	disrootN="$(ls "$disrootInbox"/* 2>/dev/null | wc -l)"
+	output="$output Disroot: $disrootN "
+	shortOutput="$shortOutput D: $disrootN "
+fi
 if [ -n "$gmailInbox" ]; then
 	gmailN="$(ls "$gmailInbox"/* 2>/dev/null | wc -l)"
 	output="$output Gmail: $gmailN "
@@ -37,6 +43,5 @@ if [ -n "$unioviInbox" ]; then
 	shortOutput="$shortOutput U: $unioviN "
 fi
 
-#echo "$(cat /tmp/imapsyncicon) Gmail: $gmailN  uniovi: $unioviN"
 echo "${output% }"
 echo "${shortOutput% }"
