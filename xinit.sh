@@ -4,10 +4,10 @@
 xrdb ~/.Xresources
 pgrep -x picom || picom -b
 pgrep -x dunst || dunst &
-setRandomBG.sh
 setxkbmap -layout es -option caps:swapescape
 xset -b
 pgrep -x unclutter || unclutter --idle 1 &
 #touchpad.sh
 initialLayout.sh
+setRandomBG.sh
 pgrep -x sxhkd || sxhkd >~/logs/sxhkd.log &

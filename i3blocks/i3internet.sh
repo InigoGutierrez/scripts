@@ -31,10 +31,11 @@ if [ -n "$wifiDev" ]; then
 		#cut -d' ' -f6)) ($(egrep "^\s*w" /proc/net/wireless |
 		#awk '{print int($3 * 100 / 70)"%"}'))"
 		# with name
+		quality="$(grep -E '^\s*w' /proc/net/wireless | awk '{print int($3 * 100 / 70)"%"}')"
+		echo "$quality" | grep -q '100' && quality='100'
 		wifi="$tick <span color='#79ff79'>$(nmcli |
 			grep -F "$wifiDev: connected to " |
-			cut -d' ' -f4-) ($(grep -E '^\s*w' /proc/net/wireless |
-			awk '{print int($3 * 100 / 70)"%"}'))</span>"
+			cut -d' ' -f4-) (${quality})</span>"
 	fi
 fi
 

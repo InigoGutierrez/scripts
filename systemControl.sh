@@ -1,7 +1,7 @@
 #!/bin/bash
 # A dmenu prompt script to control system functions.
 
-options="lock\nreboot\nshutdown\nsuspend\nhibernate\nexit i3"
+options="lock\nreboot\nshutdown\nsuspend\nhibernate\nexit i3\nexit bspwm"
 
 chosen=$(echo -e "$options" | dmenu -p ">_")
 
@@ -12,4 +12,5 @@ case "$chosen" in
 	"suspend") systemctl suspend ;;
 	"hibernate") ~/scripts/prompt.sh Hibernate? "systemctl hibernate" ;;
 	"exit i3") ~/scripts/prompt.sh "Exit i3? (ends X session)" "i3-msg exit" ;;
+	"exit bspwm") ~/scripts/prompt.sh "Exit bspwm? (ends X session)" "bspc quit" ;;
 esac
